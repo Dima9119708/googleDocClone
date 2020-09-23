@@ -4,7 +4,6 @@ import {Avatar, Box, Container, Grid, IconButton, Input} from "@material-ui/core
 import SearchIcon from '@material-ui/icons/Search';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import AssignmentIcon from '@material-ui/icons/Assignment';
-import docPlusImg from '../assets/img/docs-blank-googlecolors.png'
 
 
 export function Home() {
@@ -228,16 +227,11 @@ export function Home() {
                     maxWidth="md"
                 >
 
+                    <Box className="add__doc-plus" />
                     <Box
-                     style={{
-                         height : '200px',
-                         maxWidth : '150px',
-                         backgroundImage : `url(${docPlusImg})`,
-
-                     }}
-                    >
-
-                    </Box>
+                        component="h3"
+                        className="add__doc-title"
+                    >Пустой файл</Box>
 
                 </Container>
             </Box>

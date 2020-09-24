@@ -1,12 +1,28 @@
-import React from "react";
+import React, {FunctionComponent} from "react";
 import DescriptionIcon from '@material-ui/icons/Description';
-import {Avatar, Box, Container, Grid, IconButton, Input} from "@material-ui/core";
+import {Avatar, Box, Container, Grid, IconButton, Input, Menu} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import SortByAlphaIcon from '@material-ui/icons/SortByAlpha';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+import MenuItem from '@material-ui/core/MenuItem';
+import CheckIcon from '@material-ui/icons/Check';
 
 
-export function Home() {
+export const Home : FunctionComponent = () => {
+    const sortPopupOptions = ['По названию', 'По дате просмотра']
+    const [$openSortPopup, setSortPopup] = React.useState<any>(false)
+    const [sortActiveItem, setSortActiveItem] = React.useState<string>('По названию')
+
+    const openSortPopup = (e : React.MouseEvent) => {
+        setSortPopup(e.currentTarget)
+    }
+
+    const closeSortPopup = () => {
+        setSortPopup(false)
+    }
+
     return (
         <Container
             maxWidth="xl"
@@ -19,7 +35,6 @@ export function Home() {
                 alignItems="center"
                 style={{
                     padding : '8px 30px',
-                    boxShadow : '0 2px 5px 2px rgba(60,64,67,0.15)'
                 }}
             >
                 <Grid
@@ -199,7 +214,6 @@ export function Home() {
 
                             </Grid>
 
-
                         </Grid>
                 </Grid>
 
@@ -211,14 +225,13 @@ export function Home() {
                     item
                     xs={3}
                 >
-                    <Avatar ></Avatar>
+                    <Avatar />
                 </Grid>
 
             </Grid>
 
 
-            <Box
-              style={{
+            <Box style={{
                   padding : '20px 0',
                   backgroundColor : '#F1F3F4'
               }}
@@ -235,6 +248,222 @@ export function Home() {
 
                 </Container>
             </Box>
+
+            <Box style={{
+                    padding : '5px 0',
+                    backgroundColor : '#fff',
+                    boxShadow : '0px 6px 9px 0px rgba(60, 64, 67, 0.15)'
+                }}
+            >
+
+                <Container
+                    maxWidth="md"
+                    style={{
+                        padding : '0 18px',
+                    }}
+                >
+
+                    <Grid
+                      container
+                      alignItems="center"
+                    >
+
+                        <Grid
+                            item
+                            xs={7}
+                        >
+                          <h4
+                            style={{
+                                fontWeight : 'normal',
+                                fontSize : '16px'
+                            }}
+                          >Название документов</h4>
+                        </Grid>
+
+                        <Grid
+                            item
+                            xs={4}
+                            style={{
+                                fontWeight : 'bold',
+                                fontSize : '14px'
+                            }}
+                        >
+                            По дате просмотра
+                        </Grid>
+
+                        <Grid
+                            item
+                            xs={1}
+                        >
+
+                            <IconButton
+                                onClick={openSortPopup}
+                            >
+                                <SortByAlphaIcon
+                                    style={{
+                                        color: '#000'
+                                    }}
+                                />
+                            </IconButton>
+
+                            <Menu
+                                anchorEl={$openSortPopup}
+                                open={Boolean($openSortPopup)}
+                                onClick={closeSortPopup}
+                                style={{
+                                    top : '50px'
+                                }}
+                            >
+
+                                { sortPopupOptions && sortPopupOptions.map(item => {
+                                      return <MenuItem
+                                             key={item}
+                                             onClick={() => {
+                                                 closeSortPopup()
+                                             }}
+                                             >
+                                             { sortActiveItem === item ? <CheckIcon /> : '' }
+                                             { item }
+                                      </MenuItem>
+                                  })
+                                }
+                            </Menu>
+
+                        </Grid>
+
+                    </Grid>
+
+                </Container>
+
+            </Box>
+
+            <Container
+                maxWidth="md"
+                style={{padding : '10px 5px'}}
+            >
+                <Grid
+                    container
+                    alignItems="center"
+                    className="item__hover"
+                    style={{
+                        padding : '0 10px',
+                        borderBottom : '1px solid hsla(0, 0%, 44%, 0.4)'
+                    }}
+                >
+
+                    <Grid
+                        item
+                        xs={7}
+                    >
+                        <Grid
+                            container
+                            alignItems="center"
+                            direction="row"
+                        >
+
+                            <AssignmentIcon
+                                  style={{
+                                      color : '#1654de'
+                                  }}
+                            />
+                            <Grid
+                                item
+                                xs={11}
+                                style={{
+                                     whiteSpace : 'nowrap',
+                                     overflow : 'hidden',
+                                     textOverflow : 'ellipsis',
+                                     marginLeft: '10px',
+                                     fontSize : '15px',
+                                     fontWeight : 'bold'
+                                }}
+                            >
+                                Новый документ
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid
+                        item
+                        xs={4}
+                    >
+                        23. сент. 2020 г.
+                    </Grid>
+
+                    <Grid
+                        item
+                        xs={1}
+                    >
+                        <IconButton >
+                            <MoreVertIcon />
+                        </IconButton>
+                    </Grid>
+
+                </Grid>
+
+                <Grid
+                    container
+                    alignItems="center"
+                    className="item__hover"
+                    style={{
+                        padding : '0 10px',
+                        borderBottom : '1px solid hsla(0, 0%, 44%, 0.4)'
+                    }}
+                >
+
+                    <Grid
+                        item
+                        xs={7}
+                    >
+                        <Grid
+                            container
+                            alignItems="center"
+                            direction="row"
+                        >
+
+                            <AssignmentIcon
+                                style={{
+                                    color : '#1654de'
+                                }}
+                            />
+                            <Grid
+                                item
+                                xs={11}
+                                style={{
+                                    whiteSpace : 'nowrap',
+                                    overflow : 'hidden',
+                                    textOverflow : 'ellipsis',
+                                    marginLeft: '10px',
+                                    fontSize : '15px',
+                                    fontWeight : 'bold'
+                                }}
+                            >
+                                Новый документ
+                            </Grid>
+
+                        </Grid>
+                    </Grid>
+
+                    <Grid
+                        item
+                        xs={4}
+                    >
+                        23. сент. 2020 г.
+                    </Grid>
+
+                    <Grid
+                        item
+                        xs={1}
+                    >
+                        <IconButton >
+                            <MoreVertIcon />
+                        </IconButton>
+                    </Grid>
+
+                </Grid>
+
+            </Container>
 
         </Container>
     )

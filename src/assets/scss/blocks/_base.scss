@@ -16,6 +16,7 @@ p,h1,h2,h3,h4,ul,li {
 
 .item__hover:hover {
   cursor: pointer;
-  background-color: hsla(200, 94%, 50%, 0.2);
+  background-color: rgba(159, 192, 227, 0.3);
   border-radius: 20px;
+  border: 0 !important;
 }

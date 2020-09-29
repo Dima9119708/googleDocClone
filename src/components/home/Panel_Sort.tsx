@@ -12,6 +12,8 @@ export const PanelSort : FunctionComponent = () => {
     const sortPopupOptions : string[] = ['По названию', 'По дате просмотра']
 
     const optionItem = useSelector(  ( { homeReducer } : homeReducerTYPE) => homeReducer.sort)
+    const userData = useSelector(({homeReducer} : homeReducerTYPE) => homeReducer.dataUser)
+
     const dispatch = useDispatch()
     const [$openSortPopup, setSortPopup] = React.useState<any>(null)
 
@@ -29,6 +31,7 @@ export const PanelSort : FunctionComponent = () => {
 
     return (
         <Box style={{
+            display : userData !== null && !Object.keys(userData).length ? 'none' : 'block',
             padding : '5px 0',
             backgroundColor : '#fff',
             boxShadow : '0px 6px 9px 0px rgba(60, 64, 67, 0.15)'
@@ -95,7 +98,7 @@ export const PanelSort : FunctionComponent = () => {
                         >
                             { sortPopupOptions.map( (item,index) => {
                                 return <MenuItem
-                                    key={item + index}
+                                    key={item}
                                     onClick={() => {
                                         closeSortPopup()
                                         changePopupSortItem(item)

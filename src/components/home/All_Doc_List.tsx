@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {homeReducerTYPE} from "../../redux/store";
 import EventBusyIcon from '@material-ui/icons/EventBusy';
 import {SET_DELETE_DOC_LIST_ACTION, SET_NEW_NAME_ACTION} from "../../redux/homeReducer/homeAction";
+import {Link} from "react-router-dom";
 
 
 export const AllDocList : FunctionComponent = () => {
@@ -19,6 +20,7 @@ export const AllDocList : FunctionComponent = () => {
 
     const userData = useSelector(({homeReducer} : homeReducerTYPE) => homeReducer.dataUser)
     const dispatch = useDispatch()
+
 
     const openOptionsItem = (e : React.MouseEvent) => {
         setOptionsItem(e.currentTarget)
@@ -93,7 +95,6 @@ export const AllDocList : FunctionComponent = () => {
                         borderBottom : '1px solid hsla(0, 0%, 44%, 0.4)'
                     }}
                 >
-
                     <Grid
                         item
                         xs={7}
@@ -103,12 +104,19 @@ export const AllDocList : FunctionComponent = () => {
                             alignItems="center"
                             direction="row"
                         >
-
-                            <AssignmentIcon
+                            <Link
+                                to="/doc"
                                 style={{
-                                    color : '#1654de'
+                                    display : 'flex',
+                                    alignItems : 'center'
                                 }}
-                            />
+                            >
+                                <AssignmentIcon
+                                    style={{
+                                        color : '#1654de'
+                                    }}
+                                />
+                            </Link>
                             <Grid
                                 item
                                 xs={11}
@@ -121,7 +129,15 @@ export const AllDocList : FunctionComponent = () => {
                                     fontWeight : 'bold'
                                 }}
                             >
-                                {userData[item].title}
+                                <Link
+                                    to="/doc"
+                                    style={{
+                                        display : 'block',
+                                        color: '#000'
+                                    }}
+                                >
+                                    {userData[item].title}
+                                </Link>
                             </Grid>
 
                         </Grid>
@@ -131,7 +147,16 @@ export const AllDocList : FunctionComponent = () => {
                         item
                         xs={4}
                     >
-                        {userData[item].date}
+                        <Link
+                            to="/doc"
+                            style={{
+                                display : 'block',
+                                color: '#000'
+                            }}
+                        >
+                            {userData[item].date}
+                        </Link>
+
                     </Grid>
 
                     <Grid
@@ -179,7 +204,6 @@ export const AllDocList : FunctionComponent = () => {
                         </Menu>
 
                     </Grid>
-
                     <Dialog
                         open={openModal}
                         onClose={handleCloseModal}

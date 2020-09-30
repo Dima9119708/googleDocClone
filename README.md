@@ -5,6 +5,7 @@
 # Что использовалось
 1. TypeScript
 2. Material UI
+3. ANT DESIGN
 3. React
 4. Redux
 5. Firebase

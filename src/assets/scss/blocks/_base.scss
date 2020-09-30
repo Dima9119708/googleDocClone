@@ -9,9 +9,14 @@ body {
   box-sizing: border-box;
 }
 
-p,h1,h2,h3,h4,ul,li {
+p,h1,h2,h3,h4,ul,li,menu {
   margin: 0;
   padding: 0;
+}
+
+a:link {
+  text-decoration: none;
+  color: #000000;
 }
 
 .item__hover:hover {

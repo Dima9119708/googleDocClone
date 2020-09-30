@@ -2,6 +2,7 @@ import {Box, Container} from "@material-ui/core";
 import React from "react";
 import {SET_NEW_DOC_ACTION} from "../../redux/homeReducer/homeAction";
 import {useDispatch} from "react-redux";
+import { Link } from "react-router-dom";
 
 export const AddDoc : React.FC = () => {
 
@@ -47,10 +48,14 @@ export const AddDoc : React.FC = () => {
                 maxWidth="md"
             >
 
-                <Box
-                    onClick={addNewDoc}
-                    className="add__doc-plus"
-                />
+                <Link
+                    to="/doc"
+                >
+                    <Box
+                        onClick={addNewDoc}
+                        className="add__doc-plus"
+                    />
+                </Link>
                 <Box
                     component="h3"
                     className="add__doc-title"

@@ -4,6 +4,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import React from "react";
+import {Link, useHistory} from "react-router-dom";
 
 export const Header : React.FC = () => {
 
@@ -11,6 +12,12 @@ export const Header : React.FC = () => {
     const [searchList, setSearchList] = React.useState<'none' | 'block'>('none')
     const $parentInput = React.useRef<HTMLDivElement>(null)
     const $input = React.useRef<HTMLInputElement>(null)
+
+    const { go } = useHistory()
+
+    const reloadPage = () => {
+        go(0)
+    }
 
     const onChange = (e : React.ChangeEvent<HTMLInputElement> ) => {
         const { value } = e.currentTarget
@@ -50,24 +57,37 @@ export const Header : React.FC = () => {
                 padding : '8px 30px',
             }}
         >
-            <Grid
-                container
-                direction="row"
-                alignItems="center"
-                justify="flex-start"
-                item
-                xs={3}
-            >
-                <DescriptionIcon
-                    style={{
-                        color : '#5490F5',
-                        fontSize : '40px',
-                    }}
-                />
-                <p
-                    className="header__doc-text"
-                >Документы</p>
-            </Grid>
+                <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justify="flex-start"
+                    item
+                    xs={3}
+                >
+                    <Link
+                        to="/"
+                        onClick={reloadPage}
+                    >
+                        <Grid
+                            container
+                            direction="row"
+                            alignItems="center"
+                            justify="flex-start"
+                        >
+                            <DescriptionIcon
+                                style={{
+                                    color : '#5490F5',
+                                    fontSize : '40px',
+                                }}
+                            />
+                            <p
+                                className="header__doc-text"
+                            >Документы</p>
+                        </Grid>
+                    </Link>
+
+                </Grid>
 
             <Grid
                 container

@@ -12,9 +12,9 @@ export const Header = () => {
           style={{
               position : 'fixed',
               padding : '5px 0',
-              top : 0,
-              left : 0,
               width : '100%',
+              maxWidth : '1920px',
+              margin : '0 auto',
               backgroundColor : '#ffffff',
               borderBottom : '1px solid gray'
           }}

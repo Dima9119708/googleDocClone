@@ -4,9 +4,12 @@ import { Toolbar } from "../components/document/Toolbar";
 
 export const Document = () => {
 
-    return (<>
+    return (
+        <>
+
          <Header />
          <Toolbar />
+
       </>
     )
 }

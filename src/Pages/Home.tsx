@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from "react";
-import {Box, Container} from "@material-ui/core";
+import {Box } from "@material-ui/core";
 import {Header} from "../components/home/Header";
 import {AddDoc} from "../components/home/Add_Doc";
 import {PanelSort} from "../components/home/Panel_Sort";
@@ -19,21 +19,13 @@ export const Home : FunctionComponent = () => {
 
     if (!userData) {
         return (
-            <Box
-                style={{
-                    pointerEvents : 'none'
-                }}
-            >
+            <Box style={{ pointerEvents : 'none'}}>
 
                 <Header />
 
                 <AddDoc />
 
-                <Box style={{
-                      position: "relative",
-                      minHeight : '200px'
-                  }}
-                >
+                <Box style={{ position: "relative", minHeight : '200px'}}>
                     <Preloader height="50px" width="50px"/>
                 </Box>
 
@@ -42,11 +34,7 @@ export const Home : FunctionComponent = () => {
     }
 
     return (
-        <Container
-            maxWidth="xl"
-            style={{padding : 0}}
-        >
-
+        <>
             <Header />
 
             <AddDoc />
@@ -54,7 +42,6 @@ export const Home : FunctionComponent = () => {
             <PanelSort />
 
             <AllDocList />
-
-        </Container>
+        </>
     )
 }

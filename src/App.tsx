@@ -2,11 +2,14 @@ import React from 'react';
 import {Home} from "./Pages/Home";
 import { Route } from "react-router-dom";
 import {Document} from "./Pages/Document";
+import {Container} from "@material-ui/core";
 
 function App() {
   return (
-
-    <div className="App">
+    <Container
+        maxWidth="xl"
+        style={{padding : 0}}
+    >
 
         <Route exact path="/">
             <Home />
@@ -16,8 +19,7 @@ function App() {
             <Document />
         </Route>
 
-    </div>
-
+    </Container>
   )
 }
 

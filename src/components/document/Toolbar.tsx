@@ -4,13 +4,19 @@ import {Scale} from "./toolbar.components/Scale";
 import {Styles} from "./toolbar.components/Styles";
 import {Fonts} from "./toolbar.components/Fonts";
 import {FontSize} from "./toolbar.components/FontSize";
-import {TypesAndColors} from "./toolbar.components/TypesAndColors";
 import {TextAlignment} from "./toolbar.components/TextAlignment";
 import {LoadImage} from "./toolbar.components/LoadImage";
 import {LineSpacing} from "./toolbar.components/LineSpacing";
+import {FontWeight} from "./toolbar.components/FontWeight";
+import {FontStyle} from "./toolbar.components/FontStyle";
+import {TextDecoration} from "./toolbar.components/TextDecoration";
+import {Color} from "./toolbar.components/Color";
+import {BackgroundColor} from "./toolbar.components/BackgroundColor";
+
 
 export const Toolbar = () => {
-    return (<menu style={{
+    return (
+        <menu style={{
               position: 'fixed',
               padding : '5px 0',
               top : 70 + 'px',
@@ -45,15 +51,19 @@ export const Toolbar = () => {
                  <FontSize />
              </Box>
 
-             <Box style={{ padding : '0 10px', borderRight : '1px solid #696969'}} >
-                 <TypesAndColors />
+             <Box style={{ padding : '0 10px', borderRight : '1px solid #696969', cursor : 'pointer'}} >
+                 <FontWeight />
+                 <FontStyle />
+                 <TextDecoration />
+                 <Color />
+                 <BackgroundColor />
              </Box>
 
-             <Box style={{ padding : '0 10px', borderRight : '1px solid #696969'}} >
+             <Box style={{ padding : '0 10px', borderRight : '1px solid #696969', cursor : 'pointer'}} >
                  <TextAlignment />
              </Box>
 
-             <Box style={{ padding : '0 10px', borderRight : '1px solid #696969'}} >
+             <Box style={{ padding : '0 10px', borderRight : '1px solid #696969', cursor : 'pointer'}} >
                  <LoadImage />
              </Box>
 

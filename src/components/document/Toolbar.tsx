@@ -18,13 +18,13 @@ export const Toolbar = () => {
     return (
         <menu style={{
               position: 'fixed',
-              padding : '5px 0',
-              top : 70 + 'px',
+              padding : '10px 0',
+              top : 67 + 'px',
               width : '100%',
               maxWidth : '1920px',
               margin : '0 auto',
               backgroundColor : '#fff',
-              borderBottom : '1px solid gray'
+              borderBottom : '1px solid gray',
           }}>
 
          <Grid
@@ -67,7 +67,7 @@ export const Toolbar = () => {
                  <LoadImage />
              </Box>
 
-             <Box style={{ padding : '0 10px', borderRight : '1px solid #696969'}} >
+             <Box style={{ padding : '0 10px', borderRight : '1px solid #696969', cursor : 'pointer'}} >
                  <LineSpacing />
              </Box>
 

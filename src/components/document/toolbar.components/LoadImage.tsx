@@ -6,6 +6,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import PublishIcon from '@material-ui/icons/Publish';
 import {Grid } from "@material-ui/core";
+import {Tooltip} from "antd";
 
 
 export const LoadImage = () => {
@@ -35,10 +36,9 @@ export const LoadImage = () => {
 
         reader.readAsDataURL(target.files![0])
     }
-
-
+    
     return (
-        <>
+        <Tooltip title="Загрузить изображение" placement="top">
             <Box
                 onClick={handleClick}
             >
@@ -87,6 +87,6 @@ export const LoadImage = () => {
 
                 </MenuItem>
             </Menu>
-        </>
+        </Tooltip>
     )
 }

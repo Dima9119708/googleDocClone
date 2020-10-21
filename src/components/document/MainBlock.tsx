@@ -1,132 +1,44 @@
 import React from "react";
-import {Box} from "@material-ui/core";
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import {Box, RootRef} from "@material-ui/core";
+import {Header} from "./mainBlock.components/header/Header";
+import {LeftSlider} from "./mainBlock.components/LeftSlider/LeftSlider";
+import {Page} from "./mainBlock.components/Page";
+import {useDispatch} from "react-redux";
+import {SET_PAGE_DOM_ACTION} from "../../redux/documentRecuder/docAction";
 
 export const MainBlock = () => {
+
+    const pageDom = React.useRef(null)
+    const dispatch = useDispatch()
+
+    React.useEffect(() => {
+
+        const $pageDom = pageDom.current! as HTMLDivElement
+        dispatch(SET_PAGE_DOM_ACTION($pageDom))
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageDom])
+
     return (<>
-        <Box style={{
-                position : 'fixed',
-                top : '117px',
-                height : '15px',
-                width : '100%',
-                maxWidth : '1920px',
-                backgroundColor : '#e1e1e1',
-                borderBottom : '1px solid #000',
-                borderTop : '1px solid #000',
-            }}
-        >
+
+        <Header />
+
+        <RootRef rootRef={pageDom}>
             <Box
                 style={{
-                    position: "relative",
-                    height : '13px',
-                    maxWidth : '800px',
-                    margin : '0 auto',
-                    backgroundColor : '#ffffff'
+                    position : 'absolute',
+                    top : '130px',
+                    width : '100%',
+                    maxWidth : '1920px',
+                    paddingTop : '30px',
+                    paddingBottom : '30px',
+                    backgroundColor :'rgb(228,228,228,.4)',
+                    borderBottom : '1px solid #000',
                 }}
             >
-                <Box style={{
-                        position : "absolute",
-                        left : 0,
-                        top : 0,
-                        height : '14px',
-                        width : '20px',
-                        cursor : 'col-resize',
-                        backgroundColor : '#959595'
-                    }}
-                />
-
-                <Box style={{
-                        position : "absolute",
-                        right : 0,
-                        top : 0,
-                        height : '14px',
-                        width : '20px',
-                        cursor : 'col-resize',
-                        backgroundColor : '#959595'
-                    }}
-                />
-
-                <Box style={{
-                    position : "absolute",
-                    left : 15,
-                    top : -8,
-                    zIndex : 99,
-                    cursor : 'col-resize',
-                }}>
-                    <ArrowDropDownIcon style={{ fontSize : '30px', color : '#1585d7'}} />
-                </Box>
-
-                <Box style={{
-                    position : "absolute",
-                    right : 15,
-                    top : -8,
-                    zIndex : 99,
-                    cursor : 'col-resize',
-                }}>
-                    <ArrowDropDownIcon style={{ fontSize : '30px', color : '#1585d7'}} />
-                </Box>
-
+               <LeftSlider />
+               <Page />
             </Box>
-
-        </Box>
-
-        <Box
-            style={{
-                position : 'absolute',
-                top : '130px',
-                minHeight : '100%',
-                width : '100%',
-                maxWidth : '1920px',
-                zIndex : -1,
-                padding : '20px 0',
-                backgroundColor :'rgb(228,228,228,.4)',
-                borderBottom : '1px solid #000',
-            }}
-        >
-            <Box style={{
-                position : 'absolute',
-                top : 0,
-                left : 0,
-                height : '100%',
-                width : 15,
-                backgroundColor : '#ffffff',
-                borderRight : '1px solid gray'
-            }}>
-
-                <Box style={{
-                    position : "absolute",
-                    left : 0,
-                    top : 0,
-                    height : '50px',
-                    width : 15,
-                    cursor : 'row-resize',
-                    zIndex : 5,
-                    backgroundColor : '#959595'
-                }}
-                />
-
-                <Box style={{
-                    position : "absolute",
-                    bottom : 0,
-                    left : 0,
-                    height : '50px',
-                    width : 15,
-                    cursor : 'row-resize',
-                    backgroundColor : '#959595'
-                }}/>
-
-            </Box>
-
-            <Box style={{
-                    height : '1200px',
-                    width : '100%',
-                    maxWidth : '800px',
-                    margin : '0 auto',
-                    backgroundColor : '#ffffff',
-                    boxShadow: 'rgba(60, 64, 67, 0.15) 0px 1px 3px 1px'
-            }}/>
-
-        </Box>
-
+        </RootRef>
     </>)
 }

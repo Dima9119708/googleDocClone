@@ -6,7 +6,7 @@ const { Option } = Select;
 export const FontSize = () => {
 
     return (
-        <Tooltip title="Размер шрифта" placement="top" passive>
+        <Tooltip title="Размер шрифта" placement="top">
             <Select
                 defaultValue="11"
                 style={{width : '60px'}}

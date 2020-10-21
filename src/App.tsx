@@ -4,7 +4,9 @@ import { Route } from "react-router-dom";
 import {Document} from "./Pages/Document";
 import {Container} from "@material-ui/core";
 
+
 function App() {
+
   return (
     <Container
         maxWidth="xl"
@@ -15,7 +17,7 @@ function App() {
             <Home />
         </Route>
 
-        <Route path="/doc">
+        <Route path={"/doc/:key"}>
             <Document />
         </Route>
 

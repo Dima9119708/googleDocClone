@@ -15,6 +15,7 @@ export const Header = () => {
               width : '100%',
               maxWidth : '1920px',
               margin : '0 auto',
+              zIndex : 999,
               backgroundColor : '#ffffff',
               borderBottom : '1px solid gray'
           }}

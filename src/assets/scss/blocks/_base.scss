@@ -12,6 +12,20 @@ p,h1,h2,h3,h4,ul,li,menu {
   padding: 0;
 }
 
+textarea {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  border: 0;
+  height: initial;
+  resize: none !important;
+  overflow: hidden !important;
+}
+
+:focus {
+  outline: none;
+}
+
 a:link {
   text-decoration: none;
   color: #000000;

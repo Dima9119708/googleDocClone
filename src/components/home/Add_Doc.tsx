@@ -26,6 +26,8 @@ export const AddDoc : React.FC = () => {
         return month[0].toLowerCase() + month.slice(1, month.length)
     }
 
+    const generateKey = Date.now().toString()
+
     const addNewDoc = () => {
 
         const date = new Date().toLocaleDateString()
@@ -33,9 +35,9 @@ export const AddDoc : React.FC = () => {
         const parseDate = date.split(".")
 
         const generateDate = `${parseDate[0]} ${formatMonth(addMonths[month])}. ${parseDate[2]} г.`
-        const generateKey = Date.now().toString()
 
         dispatch(SET_NEW_DOC_ACTION('Новый документ', generateDate, generateKey))
+
     }
 
     return (
@@ -49,7 +51,7 @@ export const AddDoc : React.FC = () => {
             >
 
                 <Link
-                    to="/doc"
+                    to={'/doc/' + generateKey}
                 >
                     <Box
                         onClick={addNewDoc}

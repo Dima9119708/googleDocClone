@@ -19,7 +19,20 @@ export const MainBlock = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageDom])
 
-    return (<>
+    const handleMouse = () => {
+        const el = document.getElementById('selected')!
+
+        if (el) {
+            if (el.localName === 'span') {
+                el.id = ''
+                el.style.backgroundColor = ''
+            }
+        }
+    }
+
+    return (<div
+        onMouseDown={handleMouse}
+    >
 
         <Header />
 
@@ -32,7 +45,7 @@ export const MainBlock = () => {
                     maxWidth : '1920px',
                     paddingTop : '30px',
                     paddingBottom : '30px',
-                    backgroundColor :'rgb(228,228,228,.4)',
+                    backgroundColor :'rgb(255,255,255)',
                     borderBottom : '1px solid #000',
                 }}
             >
@@ -40,5 +53,5 @@ export const MainBlock = () => {
                <Page />
             </Box>
         </RootRef>
-    </>)
+    </div>)
 }

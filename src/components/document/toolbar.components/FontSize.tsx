@@ -1,14 +1,27 @@
 import React from "react";
 import {Select, Tooltip} from "antd";
+import {useDispatch, useSelector} from "react-redux";
+import {CHANGE_TEXT_ACTION, FONT_SIZE_ACTION} from "../../../redux/documentRecuder/docAction";
+import {docReducerTYPE} from "../../../redux/store";
 
 const { Option } = Select;
 
 export const FontSize = () => {
 
+    const { styles } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const dispatch = useDispatch()
+
+
+    const eventChange = (value : string) => {
+        dispatch(CHANGE_TEXT_ACTION(true))
+        dispatch(FONT_SIZE_ACTION(value))
+    }
+
     return (
         <Tooltip title="Размер шрифта" placement="top">
             <Select
-                defaultValue="11"
+                onChange={eventChange}
+                value={styles.fontSize}
                 style={{width : '60px'}}
             >
                 <Option value="8">8</Option>

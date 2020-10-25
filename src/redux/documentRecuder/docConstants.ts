@@ -5,3 +5,12 @@ export const PADDING_LEFT = 'PADDING_LEFT'
 export const PADDING_RIGHT = 'PADDING_RIGHT'
 export const PADDING_TOP = 'PADDING_TOP'
 export const PADDING_BOTTOM = 'PADDING_BOTTOM'
+
+export const SAVE_SELECTED_TEXT = 'SAVE_SELECTED_TEXT'
+export const CHANGE_TEXT = 'CHANGE_TEXT'
+
+export const FONT_SIZE = 'FONT_SIZE'
+export const FONT_WEIGHT = 'FONT_WEIGHT'
+export const FONT_STYLE = 'FONT_STYLE'
+export const TEXT_DECORATION = 'TEXT_DECORATION'
+export const FONT_FAMILY = 'FONT_FAMILY'

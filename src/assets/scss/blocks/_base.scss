@@ -1,6 +1,7 @@
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
+  color: #000;
 }
 
 * {
@@ -12,9 +13,10 @@ p,h1,h2,h3,h4,ul,li,menu {
   padding: 0;
 }
 
-.page span {
-
+.page {
+   background-color: #ffffff;
 }
+
 
 textarea {
   padding: 0;

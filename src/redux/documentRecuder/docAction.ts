@@ -5,13 +5,16 @@ import {
     PADDING_RIGHT,
     PADDING_TOP,
     PADDING_BOTTOM,
-    SAVE_SELECTED_TEXT,
-    CHANGE_TEXT,
     FONT_SIZE,
     FONT_WEIGHT,
     FONT_STYLE,
     TEXT_DECORATION,
-    FONT_FAMILY
+    FONT_FAMILY,
+    STYLES,
+    COLOR,
+    BACKGROUND_COLOR,
+    TEXT_ALIGN,
+    CHANGE_STYLE,
 } from "./docConstants";
 
 
@@ -87,12 +90,18 @@ export const PADDING_BOTTOM_ACTION = (height : number) : PADDING_BOTTOM_TYPE => 
     }
 }
 
-
-
-export const CHANGE_TEXT_ACTION = (changeText : boolean) => {
+export const CHANGE_STYLES_ACTION = (changeStyle : boolean) => {
     return {
-        type : CHANGE_TEXT,
-        changeText
+        type : CHANGE_STYLE,
+        changeStyle
+    }
+}
+
+
+export const STYLES_ACTION = (styles : string) => {
+    return {
+        type : STYLES,
+        styles
     }
 }
 
@@ -103,7 +112,6 @@ export const FONT_SIZE_ACTION = (fontSize : string) => {
         fontSize
     }
 }
-
 
 export const FONT_WEIGHT_ACTION = (fontWeight : string) => {
     return {
@@ -134,4 +142,25 @@ export const FONT_FAMILY_ACTION = (fontFamily : string) => {
     }
 }
 
+
+export const COLOR_ACTION = (color : string) => {
+    return {
+        type : COLOR,
+        color
+    }
+}
+
+export const BACKGROUND_COLOR_ACTION = (bg : string) => {
+    return {
+        type : BACKGROUND_COLOR,
+        bg
+    }
+}
+
+export const TEXT_ALIGN_ACTION = (textAlign : string) => {
+    return {
+        type : TEXT_ALIGN,
+        textAlign
+    }
+}
 

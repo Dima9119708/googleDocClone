@@ -1,31 +1,29 @@
 import React from "react";
 import {Tooltip} from "antd";
 import FormatBoldIcon from "@material-ui/icons/FormatBold";
-import {CHANGE_TEXT_ACTION, FONT_WEIGHT_ACTION} from "../../../redux/documentRecuder/docAction";
+import {CHANGE_STYLES_ACTION} from "../../../redux/documentRecuder/docAction";
 import {useDispatch, useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
+import {setStyles} from "../mainBlock.components/page.functions";
 
 const { fontWeight } = defaultPageStyle
 
 export const FontWeight = () => {
 
-    const { styles } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { styles, changeStyle, range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const [boldActive, setBold] = React.useState(fontWeight)
     const dispatch = useDispatch()
 
-
     React.useEffect(() => {
-        dispatch(FONT_WEIGHT_ACTION(boldActive))
-    }, [boldActive])
-
-
-    React.useEffect(() => setBold(styles.fontWeight), [styles.fontWeight])
+        setBold(styles.fontWeight)
+        dispatch(CHANGE_STYLES_ACTION( false))
+    }, [styles.fontWeight, changeStyle])
 
 
     const boldHandler = () => {
-        dispatch(CHANGE_TEXT_ACTION(true))
-        setBold(boldActive === 'normalWeight' ? 'bold' : 'normalWeight')
+        setBold(boldActive === '400' ? '700' : '400')
+        setStyles(range, 'bold')
     }
 
     return (
@@ -35,8 +33,8 @@ export const FontWeight = () => {
                 onClick={boldHandler}
                 style={{
                     marginRight : '8px',
-                    backgroundColor : boldActive === 'bold' ? 'rgb(232, 240, 254)' : '',
-                    color : boldActive === 'bold' ? 'rgb(26, 115, 232)' : '',
+                    backgroundColor : boldActive === '700' ? 'rgb(232, 240, 254)' : '',
+                    color : boldActive === '700' ? 'rgb(26, 115, 232)' : '',
                     borderRadius : '2px'
                 }}
             />

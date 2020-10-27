@@ -1,5 +1,5 @@
 import {
-    CHANGE_TEXT, FONT_SIZE, FONT_STYLE, FONT_WEIGHT,
+    FONT_SIZE, FONT_STYLE, FONT_WEIGHT,
     LINK_PRINT_DOM,
     PADDING_BOTTOM,
     PADDING_LEFT,
@@ -7,16 +7,20 @@ import {
     PADDING_TOP, SAVE_SELECTED_TEXT,
     SET_PAGE_DOM,
     TEXT_DECORATION,
-    FONT_FAMILY
+    FONT_FAMILY, STYLES, COLOR, BACKGROUND_COLOR, TEXT_ALIGN, CHANGE_STYLE, RANGE
 } from "./docConstants";
 
 
 export const defaultPageStyle = {
-    fontSize : '14',
-    fontWeight : 'normalWeight',
-    fontStyle : 'normalItalic',
-    textDecoration : 'noneUnderline',
-    fontFamily : 'Roboto'
+    fontSize : '16',
+    fontSizeView : '16',
+    fontWeight : '400',
+    fontStyle : 'normal',
+    textDecoration : 'none',
+    fontFamily : 'Roboto',
+    color : '#000',
+    bg : '#fff',
+    textAlign : 'left'
 }
 
 export type defaultPageStyleType = typeof defaultPageStyle
@@ -24,17 +28,16 @@ export type defaultPageStyleType = typeof defaultPageStyle
 const initialState = {
     divPage : null,
     linkPrintDom : null,
-    changeText : false,
+    changeStyle : false,
     page : {
         paddingTop : 90,
         paddingBottom : 90,
         paddingLeft : 90,
         paddingRight : 90,
-        innerHTML : ''
+        innerHTML : '',
     },
-    styles : {
-        ...defaultPageStyle,
-    }
+    range : {},
+    styles : {...defaultPageStyle}
 }
 
 export type InitialStateDoc = typeof initialState
@@ -55,6 +58,13 @@ export function docReducer(state = initialState, action : any) {
             return {
                 ...state,
                 divPage : action.DOM
+            }
+
+        case RANGE :
+
+            return {
+                ...state,
+                range : action.range
             }
 
         case PADDING_TOP :
@@ -89,9 +99,9 @@ export function docReducer(state = initialState, action : any) {
                 ...state,
             }
 
-        case CHANGE_TEXT :
+        case CHANGE_STYLE :
 
-            state.changeText = action.changeText
+            state.changeStyle = action.changeStyle
 
             return {
                 ...state,
@@ -132,6 +142,30 @@ export function docReducer(state = initialState, action : any) {
         case FONT_FAMILY :
 
             state.styles.fontFamily = action.fontFamily
+
+            return {
+                ...state
+            }
+
+        case COLOR :
+
+            state.styles.color = action.color
+
+            return {
+                ...state
+            }
+
+        case BACKGROUND_COLOR :
+
+            state.styles.bg = action.bg
+
+            return {
+                ...state
+            }
+
+        case TEXT_ALIGN :
+
+            state.styles.textAlign = action.textAlign
 
             return {
                 ...state

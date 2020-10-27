@@ -1,30 +1,31 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
-    CHANGE_TEXT_ACTION, FONT_FAMILY_ACTION, FONT_SIZE_ACTION, FONT_STYLE_ACTION, FONT_WEIGHT_ACTION,
-    LINK_PRINT_DOM_ACTION, TEXT_DECORATION_ACTION,
+    BACKGROUND_COLOR_ACTION, CHANGE_STYLES_ACTION,
+    COLOR_ACTION, FONT_FAMILY_ACTION, FONT_SIZE_ACTION, FONT_STYLE_ACTION, FONT_WEIGHT_ACTION,
+    LINK_PRINT_DOM_ACTION, TEXT_ALIGN_ACTION, TEXT_DECORATION_ACTION,
 } from "../../../redux/documentRecuder/docAction";
 import {docReducerTYPE} from "../../../redux/store";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
-import {formatFontFamily, formatGetFontFamily} from "./page.functions";
+import {formatGetFontFamily} from "./page.functions";
+import {RANGE_ACTION} from "../../../redux/homeReducer/homeAction";
 
 const heightPage = 1200
 export const widthPage = 800
 
-const { fontSize, fontWeight, fontStyle, textDecoration, fontFamily } = defaultPageStyle
+const { fontFamily } = defaultPageStyle
 
 export const Page = () => {
 
-    const [getRange, setRange] = React.useState({})
-    const [currentText, setCurrentText] = React.useState('')
-
-    const { page, changeText, styles} = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { page } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const $divContent = React.useRef<HTMLDivElement>(null)
     const dispatch = useDispatch()
 
+    const handleInput = (e : React.FormEvent<HTMLDivElement>) => {
+        const page = $divContent.current!.children[0].innerHTML
 
-    const handleInput = (e : React.FormEvent<HTMLDivElement>) => {}
-
+        console.log(page)
+    }
 
     React.useEffect(() => {
 
@@ -32,72 +33,48 @@ export const Page = () => {
         div.focus()
         dispatch(LINK_PRINT_DOM_ACTION($divContent.current!))
 
+        document.execCommand('styleWithCSS', false, 'true')
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [$divContent])
 
-
-    React.useEffect(() => {
-
-        if (changeText && currentText) {
-             const selection = document.getSelection()!
-
-             const range = getRange as Range;
-             selection.removeAllRanges();
-             selection.addRange(range)
-
-             const style = document.getElementById('styleHead')
-             style!.innerHTML += `
-                 .fontSize${styles.fontSize} {
-                    font-size : ${styles.fontSize}px;
-                 }
-                 
-                 .${formatFontFamily(styles.fontFamily)} {
-                    font-family : ${styles.fontFamily}, sans-serif;
-                 }
-             `
-
-             const text = `<span
-                     id="selected"
-                     style="background-color: rgba(25,119,195, .2);
-                
-                     "
-                     class="fontSize${styles.fontSize} ${styles.fontWeight} ${styles.fontStyle} ${styles.textDecoration} ${formatFontFamily(styles.fontFamily)}"
-                   >${currentText}</span>`
-
-             document.execCommand('insertHTML', false, text)
-             dispatch(CHANGE_TEXT_ACTION(false))
-             setCurrentText('')
-        }
-        else {
-            dispatch(CHANGE_TEXT_ACTION(false))
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [changeText])
 
 
     const handleSelectText = () => {
         const value = document.getSelection()!.toString()
 
         if (value) {
-            setRange(document.getSelection()!.getRangeAt(0))
-            setCurrentText(value)
+            const range = document.getSelection()!.getRangeAt(0)
+            dispatch(RANGE_ACTION(range))
         }
     }
 
 
     const handleGetStyles = (e : React.MouseEvent) => {
         const target = e.target as HTMLDivElement
-        const styles = window.getComputedStyle(target, null)
+        const styles = window.getComputedStyle(target, null) as any
+
         const getFontSize = styles.fontSize.split('px')[0]
         const getFontFamily = formatGetFontFamily(styles.fontFamily)
-        const classes = target.className.split(' ')
+        const getColor = styles.color
+        const getBG = styles.backgroundColor
 
-        dispatch(FONT_SIZE_ACTION(getFontSize ? getFontSize : fontSize))
-        dispatch(FONT_WEIGHT_ACTION(classes.includes('bold') ? 'bold' : fontWeight))
-        dispatch(FONT_STYLE_ACTION( classes.includes('italic') ? 'italic' : fontStyle))
-        dispatch(TEXT_DECORATION_ACTION( classes.includes('underline') ? 'underline' : textDecoration))
+        dispatch(CHANGE_STYLES_ACTION( true))
+
+        dispatch(FONT_SIZE_ACTION(getFontSize))
+        dispatch(FONT_WEIGHT_ACTION( styles.fontWeight ))
+        dispatch(FONT_STYLE_ACTION( styles.fontStyle ))
+
+        dispatch(TEXT_DECORATION_ACTION( styles.webkitTextDecorationsInEffect ))
+
         dispatch(FONT_FAMILY_ACTION(getFontFamily))
+
+        dispatch(COLOR_ACTION(getColor))
+        dispatch(BACKGROUND_COLOR_ACTION(getBG))
+
+        dispatch(TEXT_ALIGN_ACTION(styles.textAlign === 'start'
+                                                   ? 'left'
+                                                   : styles.textAlign))
     }
 
 
@@ -126,9 +103,9 @@ export const Page = () => {
                         contentEditable={true}
                         suppressContentEditableWarning={true}
                         onInput={handleInput}
+                        style={{fontSize: '16'}}
                         className="page"
                     >
-
                     </div>
             </div>
     )

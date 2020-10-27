@@ -1,4 +1,5 @@
 import {SET_DATA, SET_DELETE_DOC_LIST, SET_NEW_DOC, SET_NEW_NAME, SET_SORT} from "./homeConstants";
+import { RANGE } from "../documentRecuder/docConstants";
 
 type SET_SORT_AC_TYPE = {
     type : typeof SET_SORT,
@@ -41,6 +42,12 @@ export const SET_NEW_DOC_ACTION = (title : string, date : string, key : string) 
     }
 }
 
+export const RANGE_ACTION = (range : Range | object) => {
+    return {
+        type : RANGE,
+        range
+    }
+}
 
 type SET_DELETE_DOC_LIST_TYPE = {
     type : typeof SET_DELETE_DOC_LIST,

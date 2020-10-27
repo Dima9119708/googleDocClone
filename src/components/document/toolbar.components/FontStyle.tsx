@@ -4,29 +4,27 @@ import FormatItalicIcon from "@material-ui/icons/FormatItalic";
 import {useDispatch, useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
-import {CHANGE_TEXT_ACTION, FONT_STYLE_ACTION, FONT_WEIGHT_ACTION} from "../../../redux/documentRecuder/docAction";
+import {CHANGE_STYLES_ACTION} from "../../../redux/documentRecuder/docAction";
+import {setStyles} from "../mainBlock.components/page.functions";
 
 
 const { fontStyle } = defaultPageStyle
 
 export const FontStyle = () => {
 
-    const { styles } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { styles, changeStyle, range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const [italicActive, setItalic] = React.useState(fontStyle)
     const dispatch = useDispatch()
 
-
     React.useEffect(() => {
-        dispatch(FONT_STYLE_ACTION(italicActive))
-    }, [italicActive])
-
-
-    React.useEffect(() => setItalic(styles.fontStyle), [styles.fontStyle])
+        setItalic(styles.fontStyle)
+        dispatch(CHANGE_STYLES_ACTION( false))
+    }, [styles.fontStyle, changeStyle])
 
 
     const italicHandler = () => {
-        dispatch(CHANGE_TEXT_ACTION(true))
-        setItalic(italicActive === 'normalItalic' ? 'italic' : 'normalItalic')
+        setItalic(italicActive === 'normal' ? 'italic' : 'normal')
+        setStyles(range, 'italic')
     }
 
     return (

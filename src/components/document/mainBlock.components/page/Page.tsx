@@ -1,14 +1,12 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {
-    BACKGROUND_COLOR_ACTION, CHANGE_STYLES_ACTION,
-    COLOR_ACTION, FONT_FAMILY_ACTION, FONT_SIZE_ACTION, FONT_STYLE_ACTION, FONT_WEIGHT_ACTION,
-    LINK_PRINT_DOM_ACTION, TEXT_ALIGN_ACTION, TEXT_DECORATION_ACTION,
-} from "../../../redux/documentRecuder/docAction";
-import {docReducerTYPE} from "../../../redux/store";
-import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
+import {LINK_PRINT_DOM_ACTION,
+} from "../../../../redux/documentRecuder/docAction";
+import {docReducerTYPE} from "../../../../redux/store";
+import {defaultPageStyle} from "../../../../redux/documentRecuder/docReducer";
 import {formatGetFontFamily} from "./page.functions";
-import {RANGE_ACTION} from "../../../redux/homeReducer/homeAction";
+import {RANGE_ACTION} from "../../../../redux/homeReducer/homeAction";
+import { emitter } from "../../../../Emitter/emitter";
 
 const heightPage = 1200
 export const widthPage = 800
@@ -22,8 +20,7 @@ export const Page = () => {
     const dispatch = useDispatch()
 
     const handleInput = (e : React.FormEvent<HTMLDivElement>) => {
-        const page = $divContent.current!.children[0].innerHTML
-
+        //const page = $divContent.current!.children[0].innerHTML
         console.log(page)
     }
 
@@ -49,6 +46,9 @@ export const Page = () => {
         }
     }
 
+    const handleClickSelectRange = () => {
+
+    }
 
     const handleGetStyles = (e : React.MouseEvent) => {
         const target = e.target as HTMLDivElement
@@ -59,22 +59,15 @@ export const Page = () => {
         const getColor = styles.color
         const getBG = styles.backgroundColor
 
-        dispatch(CHANGE_STYLES_ACTION( true))
+        emitter.emit('FONT_SIZE', getFontSize)
+        emitter.emit('FONT_WEIGHT', styles.fontWeight)
+        emitter.emit('FONT_STYLE', styles.fontStyle)
+        emitter.emit('TEXT_DECORATION', styles.webkitTextDecorationsInEffect)
+        emitter.emit('FONT_FAMILY', getFontFamily)
+        emitter.emit('COLOR', getColor)
+        emitter.emit('BACKGROUND_COLOR', getBG)
+        emitter.emit('TEXT_ALIGN', styles.textAlign === 'start' ? 'left' : styles.textAlign)
 
-        dispatch(FONT_SIZE_ACTION(getFontSize))
-        dispatch(FONT_WEIGHT_ACTION( styles.fontWeight ))
-        dispatch(FONT_STYLE_ACTION( styles.fontStyle ))
-
-        dispatch(TEXT_DECORATION_ACTION( styles.webkitTextDecorationsInEffect ))
-
-        dispatch(FONT_FAMILY_ACTION(getFontFamily))
-
-        dispatch(COLOR_ACTION(getColor))
-        dispatch(BACKGROUND_COLOR_ACTION(getBG))
-
-        dispatch(TEXT_ALIGN_ACTION(styles.textAlign === 'start'
-                                                   ? 'left'
-                                                   : styles.textAlign))
     }
 
 
@@ -100,6 +93,7 @@ export const Page = () => {
                     <div
                         onMouseDown={handleGetStyles}
                         onSelect={handleSelectText}
+                        onClick={handleClickSelectRange}
                         contentEditable={true}
                         suppressContentEditableWarning={true}
                         onInput={handleInput}

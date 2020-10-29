@@ -7,10 +7,14 @@ import MenuItem from "@material-ui/core/MenuItem";
 import PublishIcon from '@material-ui/icons/Publish';
 import {Grid } from "@material-ui/core";
 import {Tooltip} from "antd";
+import {setStyles} from "../mainBlock.components/page/page.functions";
+import {useSelector} from "react-redux";
+import {docReducerTYPE} from "../../../redux/store";
 
 
 export const LoadImage = () => {
 
+    const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const [anchorEl, setAnchorEl] = React.useState<any>(null);
 
     const handleClick = (event : React.MouseEvent) => {
@@ -28,10 +32,7 @@ export const LoadImage = () => {
         const target = e.target as HTMLInputElement
 
         reader.onload = () => {
-
-            if (reader.readyState === 2) {
-
-            }
+            setStyles(range, 'insertImage', `${reader.result}`)
         }
 
         reader.readAsDataURL(target.files![0])

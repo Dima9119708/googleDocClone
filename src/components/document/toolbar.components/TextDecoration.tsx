@@ -1,14 +1,11 @@
 import React from "react";
 import {Tooltip} from "antd";
 import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
-import {useDispatch, useSelector} from "react-redux";
-import {
-    CHANGE_STYLES_ACTION,
-    TEXT_DECORATION_ACTION
-} from "../../../redux/documentRecuder/docAction";
+import {useSelector} from "react-redux";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
 import {docReducerTYPE} from "../../../redux/store";
-import {setStyles} from "../mainBlock.components/page.functions";
+import {setStyles} from "../mainBlock.components/page/page.functions";
+import {emitter} from "../../../Emitter/emitter";
 
 
 const { textDecoration } = defaultPageStyle
@@ -16,13 +13,13 @@ const { textDecoration } = defaultPageStyle
 export const TextDecoration = () => {
 
     const [underlinedActive, setUnderlined] = React.useState(textDecoration)
-    const { styles, changeStyle, range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
-    const dispatch = useDispatch()
+    const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+
 
     React.useEffect(() => {
-        setUnderlined(styles.textDecoration)
-        dispatch(CHANGE_STYLES_ACTION( false))
-    }, [styles.textDecoration, changeStyle])
+        emitter.on('TEXT_DECORATION', TEXT_DECORATION => setUnderlined(TEXT_DECORATION))
+    }, [])
+
 
     const underlinedHandler = () => {
         setUnderlined(underlinedActive === 'underline' ? 'none' : 'underline')

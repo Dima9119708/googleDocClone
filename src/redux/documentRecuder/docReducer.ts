@@ -1,13 +1,11 @@
 import {
-    FONT_SIZE, FONT_STYLE, FONT_WEIGHT,
     LINK_PRINT_DOM,
     PADDING_BOTTOM,
     PADDING_LEFT,
     PADDING_RIGHT,
-    PADDING_TOP, SAVE_SELECTED_TEXT,
+    PADDING_TOP,
     SET_PAGE_DOM,
-    TEXT_DECORATION,
-    FONT_FAMILY, STYLES, COLOR, BACKGROUND_COLOR, TEXT_ALIGN, CHANGE_STYLE, RANGE
+    RANGE
 } from "./docConstants";
 
 
@@ -97,78 +95,6 @@ export function docReducer(state = initialState, action : any) {
 
             return {
                 ...state,
-            }
-
-        case CHANGE_STYLE :
-
-            state.changeStyle = action.changeStyle
-
-            return {
-                ...state,
-            }
-
-        case FONT_SIZE :
-
-            state.styles.fontSize = action.fontSize
-
-            return {
-                ...state
-            }
-
-        case FONT_WEIGHT :
-
-            state.styles.fontWeight = action.fontWeight
-
-            return {
-                ...state
-            }
-
-        case FONT_STYLE :
-
-            state.styles.fontStyle = action.fontStyle
-
-            return {
-                ...state
-            }
-
-        case TEXT_DECORATION :
-
-            state.styles.textDecoration = action.textDecoration
-
-            return {
-                ...state
-            }
-
-        case FONT_FAMILY :
-
-            state.styles.fontFamily = action.fontFamily
-
-            return {
-                ...state
-            }
-
-        case COLOR :
-
-            state.styles.color = action.color
-
-            return {
-                ...state
-            }
-
-        case BACKGROUND_COLOR :
-
-            state.styles.bg = action.bg
-
-            return {
-                ...state
-            }
-
-        case TEXT_ALIGN :
-
-            state.styles.textAlign = action.textAlign
-
-            return {
-                ...state
             }
 
         default :

@@ -2,7 +2,7 @@ import React from "react";
 import {Box, RootRef} from "@material-ui/core";
 import {Header} from "./mainBlock.components/header/Header";
 import {LeftSlider} from "./mainBlock.components/LeftSlider/LeftSlider";
-import {Page} from "./mainBlock.components/Page";
+import {Page} from "./mainBlock.components/page/Page";
 import {useDispatch} from "react-redux";
 import {SET_PAGE_DOM_ACTION} from "../../redux/documentRecuder/docAction";
 

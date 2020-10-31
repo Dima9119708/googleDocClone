@@ -3,41 +3,46 @@ import {Box} from "@material-ui/core";
 import { handleMouseLeftSlide, handleMouseRightSlide } from "./header.funtion";
 import {useDispatch, useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../../redux/store";
-import {PADDING_LEFT_ACTION, PADDING_RIGHT_ACTION} from "../../../../redux/documentRecuder/docAction";
+import {
+    HEADER_SLIDE_DOM_ACTION,
+    PADDING_LEFT_ACTION,
+    PADDING_RIGHT_ACTION
+} from "../../../../redux/documentRecuder/docAction";
 
 export const Header = () => {
 
     const { page } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const rightSlide = React.useRef(null)
     const leftSlide = React.useRef(null)
+    const $headerSlide = React.useRef(null)
     const dispatch = useDispatch()
 
+    React.useEffect(() => {
+
+        if ($headerSlide) dispatch(HEADER_SLIDE_DOM_ACTION($headerSlide.current!))
+
+    }, [$headerSlide])
+
     const dispatchCallback = (side : string, width : number) => {
-        if(side === 'left') {
-            dispatch(PADDING_LEFT_ACTION(width))
-        } else {
-            dispatch(PADDING_RIGHT_ACTION(width))
-        }
+        if(side === 'left') dispatch(PADDING_LEFT_ACTION(width))
+        else dispatch(PADDING_RIGHT_ACTION(width))
     }
 
     return (
         <Box style={{
-            position : 'fixed',
-            top : '117px',
-            height : '24px',
-            width : '100%',
-            maxWidth : '1920px',
-            zIndex : 999,
+            height : 15,
             backgroundColor : '#e1e1e1',
             borderBottom : '1px solid #000',
             borderTop : '1px solid #000',
         }}>
-            <Box style={{
+            <div
+                ref={$headerSlide}
+                style={{
                     display : "flex",
                     justifyContent : 'space-between',
                     position: "relative",
                     height : '100%',
-                    maxWidth : '800px',
+                    width : page.width,
                     margin : '0 auto',
                     backgroundColor : '#ffffff'
                 }}
@@ -45,7 +50,6 @@ export const Header = () => {
                 <Box
                     style={{
                         position: "relative",
-                        height : 20,
                         display : 'inline-block'
                     }}
                 >
@@ -65,7 +69,6 @@ export const Header = () => {
 
                 <Box style={{
                         position: "relative",
-                        height : 20,
                         display : 'inline-block'
                     }}
                 >
@@ -83,7 +86,7 @@ export const Header = () => {
                         }}
                     />
                 </Box>
-            </Box>
+            </div>
         </Box>
     )
 }

@@ -10,11 +10,12 @@ import {Tooltip} from "antd";
 import {setStyles} from "../mainBlock.components/page/page.functions";
 import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
+import {Scale} from "./Scale";
 
 
 export const LoadImage = () => {
 
-    const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { targetNode } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const [anchorEl, setAnchorEl] = React.useState<any>(null);
 
     const handleClick = (event : React.MouseEvent) => {
@@ -32,11 +33,65 @@ export const LoadImage = () => {
         const target = e.target as HTMLInputElement
 
         reader.onload = () => {
-            setStyles(range, 'insertImage', `${reader.result}`)
+
+            const $targetNode = targetNode! as HTMLDivElement
+            const divElem = document.createElement('div')
+            divElem.classList.add('activeImage')
+            divElem.classList.add('image')
+            divElem.classList.add('unselectable')
+            divElem.style.backgroundImage = `url(${reader.result})`
+            divElem.contentEditable = 'false'
+
+            divElem.innerHTML = ` 
+                <div style="cursor: ew-resize" data-rightCenter="rightCenter"></div>
+                <div style="cursor: nwse-resize" data-rightBottom="rightBottom"></div>
+                <div style="cursor: ns-resize" data-bottomCenter="bottomCenter"></div>
+            `
+
+            $targetNode.appendChild(divElem)
         }
 
         reader.readAsDataURL(target.files![0])
     }
+
+    React.useEffect(() => {
+        document.onmousedown = e => {
+
+            const target = e.target as HTMLDivElement
+
+            const rightCenter = target.dataset['rightcenter']
+            const rightBottom = target.dataset['rightbottom']
+            const bottomCenter = target.dataset['bottomcenter']
+
+            if (rightCenter || rightBottom || bottomCenter) {
+
+                const parentNode = target.parentNode as HTMLDivElement
+                const pos = parentNode.getBoundingClientRect()
+
+                document.onmousemove = e => {
+
+                    const delta = e.x - pos.right
+                    const deltaBottom = e.y - pos.bottom
+
+                    if (rightCenter) {
+                        parentNode.style.width = pos.width + delta + 'px'
+                    }
+                    else if (rightBottom) {
+                        parentNode.style.height = pos.height + delta + 'px'
+                        parentNode.style.width = pos.width + delta + 'px'
+                    }
+                    else {
+                        parentNode.style.height = pos.height + deltaBottom + 'px'
+                    }
+                }
+
+                document.onmouseup = e => {
+                    document.onmousemove = null
+                    document.onmouseup = null
+                }
+            }
+        }
+    }, [])
     
     return (
         <Tooltip title="Загрузить изображение" placement="top">
@@ -45,9 +100,7 @@ export const LoadImage = () => {
             >
                 <ImageIcon />
                 <ArrowDropDownIcon
-                    style={{
-                        marginLeft : '-5px'
-                    }}
+                    style={{marginLeft : '-5px'}}
                 />
             </Box>
 

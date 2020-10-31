@@ -5,6 +5,9 @@ import {
     PADDING_RIGHT,
     PADDING_TOP,
     PADDING_BOTTOM,
+    LINE_HEIGHT,
+    HEADER_SLIDE_DOM,
+    TARGET_NODE,
 } from "./docConstants";
 
 
@@ -32,6 +35,16 @@ export const SET_PAGE_DOM_ACTION = (DOM : HTMLDivElement) : SET_PAGE_DOM_TYPE =>
     }
 }
 
+type HEADER_SLIDE_DOM_TYPE = {
+    type : typeof HEADER_SLIDE_DOM,
+    DOM : HTMLDivElement
+}
+export const HEADER_SLIDE_DOM_ACTION = (DOM : HTMLDivElement) : HEADER_SLIDE_DOM_TYPE => {
+    return {
+        type : HEADER_SLIDE_DOM,
+        DOM
+    }
+}
 
 type PADDING_LEFT_TYPE = {
     type : typeof PADDING_LEFT,
@@ -80,3 +93,24 @@ export const PADDING_BOTTOM_ACTION = (height : number) : PADDING_BOTTOM_TYPE => 
     }
 }
 
+type LINE_HEIGHT_TYPE = {
+    type : typeof LINE_HEIGHT,
+    lineHeight : number
+}
+export const LINE_HEIGHT_ACTION = (lineHeight : number) : LINE_HEIGHT_TYPE => {
+    return {
+        type : LINE_HEIGHT,
+        lineHeight
+    }
+}
+
+type TARGET_NODE_TYPE = {
+    type : typeof TARGET_NODE,
+    DOM : HTMLDivElement
+}
+export const TARGET_NODE_ACTION = (DOM : HTMLDivElement) : TARGET_NODE_TYPE => {
+    return {
+        type : TARGET_NODE,
+        DOM
+    }
+}

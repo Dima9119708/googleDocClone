@@ -12,15 +12,20 @@ export const Fonts = () => {
     const [activeFont, setFont] = React.useState('Roboto')
     const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
 
-    const fonts = ['Roboto', 'Montserrat', 'Noto Sans JP', 'Open Sans', 'Anton']
+    const fonts = ['Roboto', 'Montserrat', 'Noto Sans', 'Open Sans', 'Fira Sans']
 
     React.useEffect(() => {
         emitter.on('FONT_FAMILY', FONT_FAMILY => setFont(FONT_FAMILY))
     }, [])
 
+
     const handleChange = (value : string) => {
         setFont(value)
-        setStyles(range, 'fontName', value)
+        setStyles(range, 'fontName', value + ', sans-serif')
+    }
+
+    const handleClick = () => {
+       // document.body.style.overflowY = 'hidden'
     }
 
     return (
@@ -30,6 +35,7 @@ export const Fonts = () => {
                 style={{width : '110px'}}
                 dropdownStyle={ { minWidth : '150px'} }
                 onChange={handleChange}
+                onClick={handleClick}
             >
                 { fonts.map(item => {
                     return <Option

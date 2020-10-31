@@ -5,7 +5,10 @@ import {
     PADDING_RIGHT,
     PADDING_TOP,
     SET_PAGE_DOM,
-    RANGE
+    RANGE,
+    LINE_HEIGHT,
+    HEADER_SLIDE_DOM,
+    TARGET_NODE
 } from "./docConstants";
 
 
@@ -25,17 +28,21 @@ export type defaultPageStyleType = typeof defaultPageStyle
 
 const initialState = {
     divPage : null,
+    headerSlideDom : null,
     linkPrintDom : null,
+    targetNode : null,
     changeStyle : false,
     page : {
+        minHeight : 1200,
+        width : 800,
         paddingTop : 90,
         paddingBottom : 90,
         paddingLeft : 90,
         paddingRight : 90,
+        lineHeight : 1.2,
         innerHTML : '',
     },
     range : {},
-    styles : {...defaultPageStyle}
 }
 
 export type InitialStateDoc = typeof initialState
@@ -56,6 +63,20 @@ export function docReducer(state = initialState, action : any) {
             return {
                 ...state,
                 divPage : action.DOM
+            }
+
+        case TARGET_NODE :
+
+            return {
+                ...state,
+                targetNode : action.DOM
+            }
+
+        case HEADER_SLIDE_DOM :
+
+            return {
+                ...state,
+                headerSlideDom : action.DOM
             }
 
         case RANGE :
@@ -92,6 +113,14 @@ export function docReducer(state = initialState, action : any) {
         case PADDING_RIGHT :
 
             state.page.paddingRight = action.width
+
+            return {
+                ...state,
+            }
+
+        case LINE_HEIGHT :
+
+            state.page.lineHeight = action.lineHeight
 
             return {
                 ...state,

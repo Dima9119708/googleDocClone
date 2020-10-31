@@ -2,6 +2,8 @@ body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
   color: #000;
+  overflow: hidden;
+  overflow-x: auto;
 }
 
 * {
@@ -12,12 +14,6 @@ p,h1,h2,h3,h4,ul,li,menu {
   margin: 0;
   padding: 0;
 }
-
-.page {
-   background-color: #ffffff;
-   font-size: 16px;
-}
-
 
 textarea {
   padding: 0;
@@ -43,4 +39,26 @@ a:link {
   background-color: rgba(159, 192, 227, 0.3);
   border-radius: 20px;
   border: 0 !important;
+}
+
+.unselectable {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                               not supported by any browser */
+}
+
+.simplebar-track.simplebar-vertical {
+  width: 12px !important;
+}
+
+.simplebar-track {
+  right: 3px !important;
+}
+
+.simplebar-scrollbar::before {
+  background-color: rgb(42, 42, 42) !important;
 }

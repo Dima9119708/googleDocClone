@@ -1,11 +1,11 @@
 import React from "react";
 import {Box, Grid} from "@material-ui/core";
 import {Scale} from "./toolbar.components/Scale";
-import {Styles} from "./toolbar.components/Styles";
+import {Titles} from "./toolbar.components/Titles";
 import {Fonts} from "./toolbar.components/Fonts";
 import {TextAlignment} from "./toolbar.components/TextAlignment";
 import {LoadImage} from "./toolbar.components/LoadImage";
-import {LineSpacing} from "./toolbar.components/LineSpacing";
+import {LineHeight} from "./toolbar.components/LineHeight";
 import {FontWeight} from "./toolbar.components/FontWeight";
 import {FontStyle} from "./toolbar.components/FontStyle";
 import {TextDecoration} from "./toolbar.components/TextDecoration";
@@ -18,15 +18,8 @@ import {FontSize} from "./toolbar.components/FontSize";
 export const Toolbar = () => {
     return (
         <menu style={{
-              position: 'fixed',
               padding : '10px 0',
-              top : 67 + 'px',
-              width : '100%',
-              maxWidth : '1920px',
-              margin : '0 auto',
-              zIndex : 999,
               backgroundColor : '#fff',
-              borderBottom : '1px solid gray',
           }}>
 
          <Grid
@@ -41,12 +34,12 @@ export const Toolbar = () => {
                  <Print />
              </Box>
 
-             <Box style={{ padding : '0 10px', borderRight : '1px solid #696969'}} >
-                 <Scale />
+             <Box style={{ padding : '0 10px', borderRight : '1px solid #696969', cursor : 'pointer'}} >
+
              </Box>
 
              <Box style={{ padding : '0 10px', borderRight : '1px solid #696969'}} >
-                 <Styles />
+                 <Titles />
              </Box>
 
              <Box style={{ padding : '0 10px', borderRight : '1px solid #696969'}} >
@@ -74,7 +67,7 @@ export const Toolbar = () => {
              </Box>
 
              <Box style={{ padding : '0 10px', borderRight : '1px solid #696969', cursor : 'pointer'}} >
-                 <LineSpacing />
+                 <LineHeight />
              </Box>
 
          </Grid>

@@ -16,7 +16,7 @@ export const Color = () => {
     const [activePopupColor, setPopupColor] = React.useState(false)
     const [color, setColor] = React.useState(colorDef)
     const $color = React.useRef<SVGSVGElement>(null)
-    const { styles, range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
 
     React.useEffect(() => {
 
@@ -26,14 +26,17 @@ export const Color = () => {
 
     }, [color])
 
+
     React.useEffect(() => {
         emitter.on('COLOR', COLOR => setColor(COLOR))
     }, [])
+
 
     const handleSetColor = (color : { hex : string }) => {
        setColor(color.hex)
        setStyles(range, 'foreColor', color.hex)
     }
+
 
     const handleChangePopupColor = () => {
         setPopupColor(activePopupColor === false ? true : false)

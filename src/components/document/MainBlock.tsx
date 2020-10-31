@@ -1,10 +1,12 @@
 import React from "react";
-import {Box, RootRef} from "@material-ui/core";
+import {RootRef} from "@material-ui/core";
 import {Header} from "./mainBlock.components/header/Header";
 import {LeftSlider} from "./mainBlock.components/LeftSlider/LeftSlider";
 import {Page} from "./mainBlock.components/page/Page";
 import {useDispatch} from "react-redux";
 import {SET_PAGE_DOM_ACTION} from "../../redux/documentRecuder/docAction";
+import SimpleBar from 'simplebar-react';
+
 
 export const MainBlock = () => {
 
@@ -19,27 +21,29 @@ export const MainBlock = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageDom])
 
-
+   //
     return (<>
 
-        <Header />
+            <Header />
 
-        <RootRef rootRef={pageDom}>
-            <Box
-                style={{
-                    position : 'absolute',
-                    top : '130px',
-                    width : '100%',
-                    maxWidth : '1920px',
-                    paddingTop : '30px',
-                    paddingBottom : '30px',
-                    backgroundColor :'rgb(255,255,255)',
-                    borderBottom : '1px solid #000',
-                }}
-            >
-               <LeftSlider />
-               <Page />
-            </Box>
-        </RootRef>
+            <SimpleBar
+                    autoHide={false}
+                    style={{
+                        maxHeight : '80vh',
+                        paddingTop: '30px',
+                        paddingBottom : '30px',
+                        backgroundColor : '#F8F9FA'
+                    }}>
+
+                    <div style={{position : 'relative'}}>
+
+                        <LeftSlider />
+
+                        <RootRef rootRef={pageDom}>
+                             <Page />
+                        </RootRef>
+
+                    </div>
+            </SimpleBar>
     </>)
 }

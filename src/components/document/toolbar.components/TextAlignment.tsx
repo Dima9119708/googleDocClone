@@ -4,25 +4,21 @@ import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 import {Tooltip} from "antd";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
-import {TEXT_ALIGN_ACTION} from "../../../redux/documentRecuder/docAction";
-import {useDispatch, useSelector} from "react-redux";
-import {docReducerTYPE} from "../../../redux/store";
+import {emitter} from "../../../Emitter/emitter";
 
 
 const { textAlign : textAlignDef } = defaultPageStyle
 
 export const TextAlignment = () => {
 
-    const { styles } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const [textAlign, setTextAlign] = React.useState(textAlignDef)
-    const dispatch = useDispatch()
 
-    React.useEffect(() => setTextAlign(styles.textAlign), [styles.textAlign])
+    React.useEffect(() => {
+        emitter.on('TEXT_ALIGN', TEXT_ALIGN => setTextAlign(TEXT_ALIGN))
+    }, [])
 
     const changeTextAlign = (pos : string) => {
         setTextAlign(pos)
-        //dispatch(CHANGE_TEXT_ACTION(true))
-        //dispatch(TEXT_ALIGN_ACTION(pos))
 
         if (pos === 'center') document.execCommand('justifyCenter')
         else if (pos === 'right') document.execCommand('justifyRight')

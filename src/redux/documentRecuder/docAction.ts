@@ -5,16 +5,10 @@ import {
     PADDING_RIGHT,
     PADDING_TOP,
     PADDING_BOTTOM,
-    FONT_SIZE,
-    FONT_WEIGHT,
-    FONT_STYLE,
-    TEXT_DECORATION,
-    FONT_FAMILY,
-    STYLES,
-    COLOR,
-    BACKGROUND_COLOR,
-    TEXT_ALIGN,
-    CHANGE_STYLE,
+    LINE_HEIGHT,
+    HEADER_SLIDE_DOM,
+    TARGET_NODE,
+    IMAGE,
 } from "./docConstants";
 
 
@@ -42,6 +36,16 @@ export const SET_PAGE_DOM_ACTION = (DOM : HTMLDivElement) : SET_PAGE_DOM_TYPE =>
     }
 }
 
+type HEADER_SLIDE_DOM_TYPE = {
+    type : typeof HEADER_SLIDE_DOM,
+    DOM : HTMLDivElement
+}
+export const HEADER_SLIDE_DOM_ACTION = (DOM : HTMLDivElement) : HEADER_SLIDE_DOM_TYPE => {
+    return {
+        type : HEADER_SLIDE_DOM,
+        DOM
+    }
+}
 
 type PADDING_LEFT_TYPE = {
     type : typeof PADDING_LEFT,
@@ -90,77 +94,32 @@ export const PADDING_BOTTOM_ACTION = (height : number) : PADDING_BOTTOM_TYPE => 
     }
 }
 
-export const CHANGE_STYLES_ACTION = (changeStyle : boolean) => {
+type LINE_HEIGHT_TYPE = {
+    type : typeof LINE_HEIGHT,
+    lineHeight : number
+}
+export const LINE_HEIGHT_ACTION = (lineHeight : number) : LINE_HEIGHT_TYPE => {
     return {
-        type : CHANGE_STYLE,
-        changeStyle
+        type : LINE_HEIGHT,
+        lineHeight
+    }
+}
+
+type TARGET_NODE_TYPE = {
+    type : typeof TARGET_NODE,
+    DOM : HTMLDivElement
+}
+export const TARGET_NODE_ACTION = (DOM : HTMLDivElement) : TARGET_NODE_TYPE => {
+    return {
+        type : TARGET_NODE,
+        DOM
     }
 }
 
 
-export const STYLES_ACTION = (styles : string) => {
+export const IMAGE_ACTION = (flag : boolean) => {
     return {
-        type : STYLES,
-        styles
+        type : IMAGE,
+        flag
     }
 }
-
-
-export const FONT_SIZE_ACTION = (fontSize : string) => {
-    return {
-        type : FONT_SIZE,
-        fontSize
-    }
-}
-
-export const FONT_WEIGHT_ACTION = (fontWeight : string) => {
-    return {
-        type : FONT_WEIGHT,
-        fontWeight
-    }
-}
-
-export const FONT_STYLE_ACTION = (fontStyle : string) => {
-    return {
-        type : FONT_STYLE,
-        fontStyle
-    }
-}
-
-export const TEXT_DECORATION_ACTION = (textDecoration : string) => {
-    return {
-        type : TEXT_DECORATION,
-        textDecoration
-    }
-}
-
-
-export const FONT_FAMILY_ACTION = (fontFamily : string) => {
-    return {
-        type : FONT_FAMILY,
-        fontFamily
-    }
-}
-
-
-export const COLOR_ACTION = (color : string) => {
-    return {
-        type : COLOR,
-        color
-    }
-}
-
-export const BACKGROUND_COLOR_ACTION = (bg : string) => {
-    return {
-        type : BACKGROUND_COLOR,
-        bg
-    }
-}
-
-export const TEXT_ALIGN_ACTION = (textAlign : string) => {
-    return {
-        type : TEXT_ALIGN,
-        textAlign
-    }
-}
-

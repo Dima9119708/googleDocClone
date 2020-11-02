@@ -2,10 +2,11 @@ import React from "react";
 import {Popover, Tooltip} from "antd";
 import {CompactPicker} from "react-color";
 import FormatColorFillIcon from "@material-ui/icons/FormatColorFill";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
-import {setStyles} from "../mainBlock.components/page.functions";
+import {setStyles} from "../mainBlock.components/page/page.functions";
+import {emitter} from "../../../Emitter/emitter";
 
 
 const { bg } = defaultPageStyle
@@ -14,7 +15,7 @@ export const BackgroundColor = () => {
 
     const [activePopupBackgroundColor, setPopupBackgroundColor] = React.useState(false)
     const [getBackgroundColor, setBackgroundColor] = React.useState(bg)
-    const { styles, range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const $backgroundColor = React.useRef<SVGSVGElement>(null)
 
     React.useEffect(() => {
@@ -26,7 +27,9 @@ export const BackgroundColor = () => {
     }, [getBackgroundColor])
 
 
-    React.useEffect(() => setBackgroundColor(styles.bg), [styles.bg])
+    React.useEffect(() => {
+        emitter.on('BACKGROUND_COLOR', bg => setBackgroundColor(bg))
+    }, [])
 
 
     const handleSetBackgroundColor = (color : {hex : string}) => {

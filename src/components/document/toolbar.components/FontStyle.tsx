@@ -1,25 +1,23 @@
 import React from "react";
 import {Tooltip} from "antd";
 import FormatItalicIcon from "@material-ui/icons/FormatItalic";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
-import {CHANGE_STYLES_ACTION} from "../../../redux/documentRecuder/docAction";
-import {setStyles} from "../mainBlock.components/page.functions";
+import {setStyles} from "../mainBlock.components/page/page.functions";
+import {emitter} from "../../../Emitter/emitter";
 
 
 const { fontStyle } = defaultPageStyle
 
 export const FontStyle = () => {
 
-    const { styles, changeStyle, range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const [italicActive, setItalic] = React.useState(fontStyle)
-    const dispatch = useDispatch()
 
     React.useEffect(() => {
-        setItalic(styles.fontStyle)
-        dispatch(CHANGE_STYLES_ACTION( false))
-    }, [styles.fontStyle, changeStyle])
+        emitter.on('FONT_STYLE', FONT_STYLE => setItalic(FONT_STYLE))
+    }, [])
 
 
     const italicHandler = () => {

@@ -2,15 +2,19 @@ import React from 'react';
 import {Home} from "./Pages/Home";
 import { Route } from "react-router-dom";
 import {Document} from "./Pages/Document";
-import {Container} from "@material-ui/core";
 
 
 function App() {
 
   return (
-    <Container
-        maxWidth="xl"
-        style={{padding : 0}}
+    <div
+        style={{
+            padding : 0,
+            width : '100%',
+            minWidth : '1140px',
+            maxWidth : '2556px',
+            margin : '0 auto'
+        }}
     >
 
         <Route exact path="/">
@@ -21,7 +25,7 @@ function App() {
             <Document />
         </Route>
 
-    </Container>
+    </div>
   )
 }
 

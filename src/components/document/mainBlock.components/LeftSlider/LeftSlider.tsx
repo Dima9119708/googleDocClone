@@ -23,28 +23,24 @@ export const LeftSlider = () => {
     React.useEffect(() => {
 
         if (divPage) {
-            const div = divPage! as HTMLDivElement
-            const divHeight = +div.style.paddingTop.split('px')[0]
-            setSide(divHeight)
+            const page = divPage! as HTMLDivElement
+            const pagePD = +page.style.paddingTop.split('px')[0]
+            setSide(pagePD)
         }
 
     }, [divPage])
 
     const dispatchCallback = (side : string, height : number) => {
-        if ( side === 'lower' ) {
-            dispatch(PADDING_TOP_ACTION(height))
-        }
-        else {
-            dispatch(PADDING_BOTTOM_ACTION(height))
-        }
+        if ( side === 'lower' ) dispatch(PADDING_TOP_ACTION(height))
+        else dispatch(PADDING_BOTTOM_ACTION(height))
     }
 
     return (
         <Box style={{
             position : 'absolute',
-            top : 0,
+            top : -side,
             left : 0,
-            height : '100%',
+            bottom : -side,
             width : 15,
             backgroundColor : '#ffffff',
             borderRight : '1px solid gray'

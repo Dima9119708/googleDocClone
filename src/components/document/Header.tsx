@@ -10,12 +10,6 @@ export const Header = () => {
     return (
         <header
           style={{
-              position : 'fixed',
-              padding : '5px 0',
-              width : '100%',
-              maxWidth : '1920px',
-              margin : '0 auto',
-              zIndex : 999,
               backgroundColor : '#ffffff',
               borderBottom : '1px solid gray'
           }}

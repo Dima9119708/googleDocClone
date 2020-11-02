@@ -1,25 +1,23 @@
 import React from "react";
 import {Tooltip} from "antd";
 import FormatBoldIcon from "@material-ui/icons/FormatBold";
-import {CHANGE_STYLES_ACTION} from "../../../redux/documentRecuder/docAction";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
-import {setStyles} from "../mainBlock.components/page.functions";
+import {setStyles} from "../mainBlock.components/page/page.functions";
+import {emitter} from "../../../Emitter/emitter";
 
 const { fontWeight } = defaultPageStyle
 
 export const FontWeight = () => {
 
-    const { styles, changeStyle, range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const [boldActive, setBold] = React.useState(fontWeight)
-    const dispatch = useDispatch()
+
 
     React.useEffect(() => {
-        setBold(styles.fontWeight)
-        dispatch(CHANGE_STYLES_ACTION( false))
-    }, [styles.fontWeight, changeStyle])
-
+        emitter.on('FONT_WEIGHT', FONT_WEIGHT => setBold(FONT_WEIGHT))
+    }, [])
 
     const boldHandler = () => {
         setBold(boldActive === '400' ? '700' : '400')

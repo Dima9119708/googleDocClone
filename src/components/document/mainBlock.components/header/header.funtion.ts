@@ -1,5 +1,5 @@
 import React, { MutableRefObject } from "react";
-import {widthPage} from "../Page";
+import {widthPage} from "../page/Page";
 
 export const handleMouseLeftSlide = (
                        e : React.MouseEvent,

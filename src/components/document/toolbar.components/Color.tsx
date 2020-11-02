@@ -5,7 +5,8 @@ import FormatColorTextIcon from "@material-ui/icons/FormatColorText";
 import {useSelector} from "react-redux";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
 import {docReducerTYPE} from "../../../redux/store";
-import {setStyles} from "../mainBlock.components/page.functions";
+import {setStyles} from "../mainBlock.components/page/page.functions";
+import {emitter} from "../../../Emitter/emitter";
 
 
 const { color : colorDef } = defaultPageStyle
@@ -15,7 +16,7 @@ export const Color = () => {
     const [activePopupColor, setPopupColor] = React.useState(false)
     const [color, setColor] = React.useState(colorDef)
     const $color = React.useRef<SVGSVGElement>(null)
-    const { styles, range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
 
     React.useEffect(() => {
 
@@ -25,12 +26,17 @@ export const Color = () => {
 
     }, [color])
 
-    React.useEffect(() => setColor(styles.color), [styles.color])
+
+    React.useEffect(() => {
+        emitter.on('COLOR', COLOR => setColor(COLOR))
+    }, [])
+
 
     const handleSetColor = (color : { hex : string }) => {
        setColor(color.hex)
        setStyles(range, 'foreColor', color.hex)
     }
+
 
     const handleChangePopupColor = () => {
         setPopupColor(activePopupColor === false ? true : false)

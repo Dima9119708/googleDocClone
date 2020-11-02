@@ -1,13 +1,15 @@
 import {
-    FONT_SIZE, FONT_STYLE, FONT_WEIGHT,
     LINK_PRINT_DOM,
     PADDING_BOTTOM,
     PADDING_LEFT,
     PADDING_RIGHT,
-    PADDING_TOP, SAVE_SELECTED_TEXT,
+    PADDING_TOP,
     SET_PAGE_DOM,
-    TEXT_DECORATION,
-    FONT_FAMILY, STYLES, COLOR, BACKGROUND_COLOR, TEXT_ALIGN, CHANGE_STYLE, RANGE
+    RANGE,
+    LINE_HEIGHT,
+    HEADER_SLIDE_DOM,
+    TARGET_NODE,
+    IMAGE
 } from "./docConstants";
 
 
@@ -27,17 +29,22 @@ export type defaultPageStyleType = typeof defaultPageStyle
 
 const initialState = {
     divPage : null,
+    headerSlideDom : null,
     linkPrintDom : null,
+    targetNode : null,
     changeStyle : false,
+    image : false,
     page : {
+        minHeight : 1200,
+        width : 800,
         paddingTop : 90,
         paddingBottom : 90,
         paddingLeft : 90,
         paddingRight : 90,
+        lineHeight : 1.2,
         innerHTML : '',
     },
     range : {},
-    styles : {...defaultPageStyle}
 }
 
 export type InitialStateDoc = typeof initialState
@@ -60,11 +67,32 @@ export function docReducer(state = initialState, action : any) {
                 divPage : action.DOM
             }
 
+        case TARGET_NODE :
+
+            return {
+                ...state,
+                targetNode : action.DOM
+            }
+
+        case HEADER_SLIDE_DOM :
+
+            return {
+                ...state,
+                headerSlideDom : action.DOM
+            }
+
         case RANGE :
 
             return {
                 ...state,
                 range : action.range
+            }
+
+        case IMAGE :
+
+            return {
+                ...state,
+                image : action.flag
             }
 
         case PADDING_TOP :
@@ -99,76 +127,12 @@ export function docReducer(state = initialState, action : any) {
                 ...state,
             }
 
-        case CHANGE_STYLE :
+        case LINE_HEIGHT :
 
-            state.changeStyle = action.changeStyle
+            state.page.lineHeight = action.lineHeight
 
             return {
                 ...state,
-            }
-
-        case FONT_SIZE :
-
-            state.styles.fontSize = action.fontSize
-
-            return {
-                ...state
-            }
-
-        case FONT_WEIGHT :
-
-            state.styles.fontWeight = action.fontWeight
-
-            return {
-                ...state
-            }
-
-        case FONT_STYLE :
-
-            state.styles.fontStyle = action.fontStyle
-
-            return {
-                ...state
-            }
-
-        case TEXT_DECORATION :
-
-            state.styles.textDecoration = action.textDecoration
-
-            return {
-                ...state
-            }
-
-        case FONT_FAMILY :
-
-            state.styles.fontFamily = action.fontFamily
-
-            return {
-                ...state
-            }
-
-        case COLOR :
-
-            state.styles.color = action.color
-
-            return {
-                ...state
-            }
-
-        case BACKGROUND_COLOR :
-
-            state.styles.bg = action.bg
-
-            return {
-                ...state
-            }
-
-        case TEXT_ALIGN :
-
-            state.styles.textAlign = action.textAlign
-
-            return {
-                ...state
             }
 
         default :

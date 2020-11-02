@@ -1,11 +1,12 @@
 import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
+    IMAGE_ACTION,
     LINK_PRINT_DOM_ACTION, TARGET_NODE_ACTION,
 } from "../../../../redux/documentRecuder/docAction";
 import {docReducerTYPE} from "../../../../redux/store";
 import {defaultPageStyle} from "../../../../redux/documentRecuder/docReducer";
-import {formatGetFontFamily} from "./page.functions";
+import {checkNodeImageOrNot, formatGetFontFamily, resizeImage} from "./page.functions";
 import {RANGE_ACTION} from "../../../../redux/homeReducer/homeAction";
 import { emitter } from "../../../../Emitter/emitter";
 
@@ -22,7 +23,28 @@ export const Page = () => {
 
     const { page } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const $divContent = React.useRef<HTMLDivElement>(null)
+    const [pageDiv, setPageDiv] = React.useState<HTMLDivElement | null>(null)
     const dispatch = useDispatch()
+
+
+    React.useEffect(() => {
+
+        const div = $divContent.current!.children[0] as HTMLDivElement
+        div.focus()
+
+        const range = document.getSelection()!.getRangeAt(0)
+
+        dispatch(LINK_PRINT_DOM_ACTION($divContent.current!))
+        dispatch(RANGE_ACTION(range))
+        dispatch(TARGET_NODE_ACTION(div))
+
+        setPageDiv(div)
+
+        document.execCommand('styleWithCSS', false, 'true')
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
 
     const handleInput = (e : React.FormEvent<HTMLDivElement>) => {
         // @ts-ignore
@@ -32,21 +54,13 @@ export const Page = () => {
         //console.log(page)
     }
 
-    React.useEffect(() => {
 
-        const div = $divContent.current!.children[0] as HTMLDivElement
-        div.focus()
-        dispatch(LINK_PRINT_DOM_ACTION($divContent.current!))
-
-        const range = document.getSelection()!.getRangeAt(0)
-        dispatch(RANGE_ACTION(range))
-
-        dispatch(TARGET_NODE_ACTION(div))
-
-        document.execCommand('styleWithCSS', false, 'true')
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [$divContent])
+    const handleKey = (e : React.KeyboardEvent) => {
+        if(e.key === 'Delete') {
+            const currentImage = pageDiv?.querySelector('.activeImage')
+            if(currentImage) currentImage.remove()
+        }
+    }
 
 
     const handleSelectText = () => {
@@ -58,6 +72,7 @@ export const Page = () => {
         }
     }
 
+
     const handleClickSelectRange = () => {
         const selection = document.getSelection()!
 
@@ -67,19 +82,42 @@ export const Page = () => {
         }
     }
 
-    const handleGetStyles = (e : React.MouseEvent) => {
+
+    const handleMouse = (e : React.MouseEvent) => {
+
         // @ts-ignore
         $stylesElem = []
 
         const target = e.target as HTMLDivElement
-        const styles = window.getComputedStyle(target, null) as any
+        const styles = window.getComputedStyle(target) as any
 
         const getFontSize = styles.fontSize.split('px')[0]
         const getFontFamily = formatGetFontFamily(styles.fontFamily)
         const getColor = styles.color
         const getBG = styles.backgroundColor
 
+
+        const image = checkNodeImageOrNot(target, pageDiv)
+        dispatch(IMAGE_ACTION(image))
+
+        resizeImage(target)
         dispatch(TARGET_NODE_ACTION(target))
+
+
+        const imageMarginLeft = +styles.marginLeft.split('px')[0]
+        const imageMarginRight = +styles.marginRight.split('px')[0]
+
+        if(imageMarginLeft > imageMarginRight) {
+            emitter.emit('IMAGE__SIDE', 'right')
+        }
+        else if (imageMarginRight > imageMarginLeft) {
+            emitter.emit('IMAGE__SIDE', 'left')
+        }
+        else if (imageMarginRight === imageMarginLeft) {
+            emitter.emit('IMAGE__SIDE', 'center')
+        }
+
+        emitter.emit('FLOAT', styles.float)
         emitter.emit('FONT_SIZE', getFontSize)
         emitter.emit('FONT_WEIGHT', styles.fontWeight)
         emitter.emit('FONT_STYLE', styles.fontStyle)
@@ -107,20 +145,21 @@ export const Page = () => {
                     lineHeight : page.lineHeight,
                     backgroundColor : '#ffffff',
                     overflow : 'hidden',
-                    wordBreak : 'break-word',
                     boxShadow: 'rgba(60, 64, 67, 0.15) 0px 1px 3px 1px',
                 }}
             >
                     <div
-                        onMouseDown={handleGetStyles}
+                        onMouseDown={handleMouse}
                         onSelect={handleSelectText}
                         onClick={handleClickSelectRange}
+                        onKeyDown={handleKey}
                         onInput={handleInput}
                         contentEditable={true}
                         suppressContentEditableWarning={true}
                         style={{fontSize: '16'}}
                         className="page"
                     >
+
                     </div>
             </div>
     )

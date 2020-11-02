@@ -8,7 +8,7 @@ import {LINE_HEIGHT_ACTION} from "../../../redux/documentRecuder/docAction";
 
 export const LineHeight = () => {
 
-    const lineSpacing = [1, 1.5, 2]
+    const lineSpacing = [1, 1.15, 1.25, 1.40, 1.5, 2]
 
     const [anchorEl, setAnchorEl] = React.useState<any>(null);
     const dispatch = useDispatch()

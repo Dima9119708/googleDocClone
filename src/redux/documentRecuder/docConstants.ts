@@ -11,3 +11,5 @@ export const LINE_HEIGHT = 'LINE_HEIGHT'
 
 export const STYLES = 'STYLES'
 export const RANGE = 'RANGE'
+
+export const IMAGE = 'IMAGE'

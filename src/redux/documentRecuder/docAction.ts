@@ -8,6 +8,7 @@ import {
     LINE_HEIGHT,
     HEADER_SLIDE_DOM,
     TARGET_NODE,
+    IMAGE,
 } from "./docConstants";
 
 
@@ -112,5 +113,13 @@ export const TARGET_NODE_ACTION = (DOM : HTMLDivElement) : TARGET_NODE_TYPE => {
     return {
         type : TARGET_NODE,
         DOM
+    }
+}
+
+
+export const IMAGE_ACTION = (flag : boolean) => {
+    return {
+        type : IMAGE,
+        flag
     }
 }

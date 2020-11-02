@@ -7,10 +7,8 @@ import MenuItem from "@material-ui/core/MenuItem";
 import PublishIcon from '@material-ui/icons/Publish';
 import {Grid } from "@material-ui/core";
 import {Tooltip} from "antd";
-import {setStyles} from "../mainBlock.components/page/page.functions";
 import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
-import {Scale} from "./Scale";
 
 
 export const LoadImage = () => {
@@ -35,68 +33,36 @@ export const LoadImage = () => {
         reader.onload = () => {
 
             const $targetNode = targetNode! as HTMLDivElement
-            const divElem = document.createElement('div')
-            divElem.classList.add('activeImage')
-            divElem.classList.add('image')
-            divElem.classList.add('unselectable')
-            divElem.style.backgroundImage = `url(${reader.result})`
-            divElem.contentEditable = 'false'
 
-            divElem.innerHTML = ` 
+            const divImage = document.createElement('div')
+            const divEmpty = document.createElement('div')
+
+            divEmpty.style.minHeight = '20px'
+            divImage.classList.add('image')
+            divImage.classList.add('unselectable')
+            divImage.style.backgroundImage = `url(${reader.result})`
+            divImage.contentEditable = 'false'
+
+            divImage.innerHTML = `  
                 <div style="cursor: ew-resize" data-rightCenter="rightCenter"></div>
                 <div style="cursor: nwse-resize" data-rightBottom="rightBottom"></div>
                 <div style="cursor: ns-resize" data-bottomCenter="bottomCenter"></div>
+                <div style="cursor: ew-resize" data-leftCenter="leftCenter"></div>
             `
 
-            $targetNode.appendChild(divElem)
+            $targetNode.appendChild(divImage)
+            $targetNode.appendChild(divEmpty)
+
+            target.value = ''
         }
 
         reader.readAsDataURL(target.files![0])
     }
 
-    React.useEffect(() => {
-        document.onmousedown = e => {
 
-            const target = e.target as HTMLDivElement
-
-            const rightCenter = target.dataset['rightcenter']
-            const rightBottom = target.dataset['rightbottom']
-            const bottomCenter = target.dataset['bottomcenter']
-
-            if (rightCenter || rightBottom || bottomCenter) {
-
-                const parentNode = target.parentNode as HTMLDivElement
-                const pos = parentNode.getBoundingClientRect()
-
-                document.onmousemove = e => {
-
-                    const delta = e.x - pos.right
-                    const deltaBottom = e.y - pos.bottom
-
-                    if (rightCenter) {
-                        parentNode.style.width = pos.width + delta + 'px'
-                    }
-                    else if (rightBottom) {
-                        parentNode.style.height = pos.height + delta + 'px'
-                        parentNode.style.width = pos.width + delta + 'px'
-                    }
-                    else {
-                        parentNode.style.height = pos.height + deltaBottom + 'px'
-                    }
-                }
-
-                document.onmouseup = e => {
-                    document.onmousemove = null
-                    document.onmouseup = null
-                }
-            }
-        }
-    }, [])
-    
     return (
         <Tooltip title="Загрузить изображение" placement="top">
-            <Box
-                onClick={handleClick}
+            <Box onClick={handleClick}
             >
                 <ImageIcon />
                 <ArrowDropDownIcon

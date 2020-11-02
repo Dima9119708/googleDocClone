@@ -1,18 +1,15 @@
 .page {
   background-color: #ffffff;
   font-size: 16px;
+  word-break: break-word;
 
   .image {
     position: relative;
-    display: inline-block;
     height: 200px;
     width: 200px;
-    background-position: center;
-    background-size : cover;
+    margin-right: auto;
+    background-size : 100% 100%;
     background-repeat: no-repeat;
-    margin: 5px 0;
-    margin-right: 5px;
-    z-index: 1;
   }
 
   .image img {
@@ -22,6 +19,7 @@
 
   .activeImage {
     outline: 2px solid #1344e6;
+    z-index: 999;
   }
 
   .activeImage div:nth-child(1) {
@@ -49,6 +47,17 @@
     position: absolute;
     bottom: -12px;
     right: 50%;
+    transform: translateY(-50%);
+    height: 10px;
+    width: 10px;
+    z-index: 999;
+    background-color: #1344e6;
+  }
+
+  .activeImage div:nth-child(4) {
+    position: absolute;
+    top : 50%;
+    left: -5px;
     transform: translateY(-50%);
     height: 10px;
     width: 10px;

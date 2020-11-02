@@ -8,7 +8,8 @@ import {
     RANGE,
     LINE_HEIGHT,
     HEADER_SLIDE_DOM,
-    TARGET_NODE
+    TARGET_NODE,
+    IMAGE
 } from "./docConstants";
 
 
@@ -32,6 +33,7 @@ const initialState = {
     linkPrintDom : null,
     targetNode : null,
     changeStyle : false,
+    image : false,
     page : {
         minHeight : 1200,
         width : 800,
@@ -84,6 +86,13 @@ export function docReducer(state = initialState, action : any) {
             return {
                 ...state,
                 range : action.range
+            }
+
+        case IMAGE :
+
+            return {
+                ...state,
+                image : action.flag
             }
 
         case PADDING_TOP :

@@ -21,7 +21,6 @@ export const AllDocList : FunctionComponent = () => {
     const userData = useSelector(({homeReducer} : homeReducerTYPE) => homeReducer.dataUser)
     const dispatch = useDispatch()
 
-
     const openOptionsItem = (e : React.MouseEvent) => {
         setOptionsItem(e.currentTarget)
     }
@@ -105,7 +104,7 @@ export const AllDocList : FunctionComponent = () => {
                             direction="row"
                         >
                             <Link
-                                to="/doc"
+                                to={`/doc/${userData[item].id}`}
                                 style={{
                                     display : 'flex',
                                     alignItems : 'center'
@@ -130,13 +129,13 @@ export const AllDocList : FunctionComponent = () => {
                                 }}
                             >
                                 <Link
-                                    to="/doc"
+                                    to={`/doc/${userData[item].id}`}
                                     style={{
                                         display : 'block',
                                         color: '#000'
                                     }}
                                 >
-                                    {userData[item].title}
+                                    {userData[item].name}
                                 </Link>
                             </Grid>
 
@@ -173,9 +172,7 @@ export const AllDocList : FunctionComponent = () => {
                             anchorEl={getOptionsItem}
                             open={Boolean(getOptionsItem)}
                             onClick={closeOptionsItem}
-                            style={{
-                                top : '50px'
-                            }}
+                            style={{top : '50px'}}
                         >
                             <MenuItem
                                 onClick={handleOpenModal}>
@@ -221,7 +218,7 @@ export const AllDocList : FunctionComponent = () => {
                                 margin="dense"
                                 id="name"
                                 label="Название документа"
-                                defaultValue={userData[item].title}
+                                defaultValue={userData[item].name}
                                 type="text"
                                 fullWidth
                                 inputRef={$input}

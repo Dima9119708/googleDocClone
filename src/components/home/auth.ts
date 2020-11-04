@@ -17,12 +17,11 @@ export function authInApp(dispatch : any) : void {
 
     ;( async () => {
         await firebase.database()
-            .ref(`/docReact/${key}`)
+            .ref(`/docReact/${key}/list/`)
             .on('value', function (value) {
 
                 const result = value.val() ? value.val() : {}
                 dispatch(SET_DATA_ACTION(result))
-
             })
     })();
 }

@@ -6,61 +6,77 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import PublishIcon from '@material-ui/icons/Publish';
 import {Grid } from "@material-ui/core";
-import {Tooltip} from "antd";
+import {Tooltip, notification} from "antd";
 import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
+import {setStyles} from "../mainBlock.components/page/page.functions";
 
+
+const openNotification = () => {
+    const args = {
+        message: 'Ошибка',
+        description:
+            'Загружаемый файл должен быть формата PNG, JPEG, JPG, SVG, GIF, WEBP',
+        duration: 0,
+    };
+    notification.open(args);
+};
 
 export const LoadImage = () => {
 
-    const { targetNode } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const [anchorEl, setAnchorEl] = React.useState<any>(null);
+    const [validImage, setValidImage] = React.useState(false);
 
     const handleClick = (event : React.MouseEvent) => {
         setAnchorEl(event.currentTarget);
     };
 
+    React.useEffect(() => setValidImage(false), [validImage])
+
     const handleClose = () => {
         setAnchorEl(null);
     };
 
-    const handleLoadImage = ( e : React.ChangeEvent) => {
+    const handleLoadImage = ( e : React.ChangeEvent ) => {
 
         const reader = new FileReader()
 
         const target = e.target as HTMLInputElement
+        const image = target.files![0]
 
-        reader.onload = () => {
+        const textImage = /\.(gif|jpe?g|tiff?|png|webp|bmp)$/i
 
-            const $targetNode = targetNode! as HTMLDivElement
+        if( textImage.test(image.name) ) {
 
-            const divImage = document.createElement('div')
-            const divEmpty = document.createElement('div')
+            reader.onload = () => {
 
-            divEmpty.style.minHeight = '20px'
-            divImage.classList.add('image')
-            divImage.classList.add('unselectable')
-            divImage.style.backgroundImage = `url(${reader.result})`
-            divImage.contentEditable = 'false'
+                const createImageDiv = `
+                   <div style="min-height: 20px"></div>
+                   <div 
+                         contenteditable="false"
+                         class="image unselectable" 
+                         style="background-image: url(${reader.result})">
+                    <div style="cursor: ew-resize" data-rightCenter="rightCenter"></div>
+                    <div style="cursor: nwse-resize" data-rightBottom="rightBottom"></div>
+                    <div style="cursor: ns-resize" data-bottomCenter="bottomCenter"></div>
+                    <div style="cursor: ew-resize" data-leftCenter="leftCenter"></div>
+                </div>
+                <div style="min-height: 20px"></div>
+                `
 
-            divImage.innerHTML = `  
-                <div style="cursor: ew-resize" data-rightCenter="rightCenter"></div>
-                <div style="cursor: nwse-resize" data-rightBottom="rightBottom"></div>
-                <div style="cursor: ns-resize" data-bottomCenter="bottomCenter"></div>
-                <div style="cursor: ew-resize" data-leftCenter="leftCenter"></div>
-            `
+                setStyles(range, 'insertHTML', createImageDiv)
+                target.value = ''
+            }
 
-            $targetNode.appendChild(divImage)
-            $targetNode.appendChild(divEmpty)
-
-            target.value = ''
+            reader.readAsDataURL(image)
         }
-
-        reader.readAsDataURL(target.files![0])
+        else {
+            setValidImage(true)
+        }
     }
 
-
-    return (
+    return (<>
         <Tooltip title="Загрузить изображение" placement="top">
             <Box onClick={handleClick}
             >
@@ -108,5 +124,6 @@ export const LoadImage = () => {
                 </MenuItem>
             </Menu>
         </Tooltip>
-    )
+        {validImage && openNotification()}
+    </>)
 }

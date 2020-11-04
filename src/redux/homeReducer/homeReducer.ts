@@ -10,7 +10,8 @@ type ActionTYPE = {
 }
 
 type dataUserObjectType = {
-    title : string,
+    name : string,
+    id : string
     date : string
 }
 
@@ -72,7 +73,7 @@ export function homeReducer(state = initialState, action : ActionTYPE) {
         case SET_NEW_NAME :
 
             const stateUserData = {...state.dataUser}
-            stateUserData[action.key].title = action.title
+            stateUserData[action.key].name = action.title
 
             return {
                 ...state,

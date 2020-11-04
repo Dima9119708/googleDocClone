@@ -1,4 +1,5 @@
 import {$stylesElem} from "./Page";
+import {emitter} from "../../../../Emitter/emitter";
 
 export function formatGetFontFamily(fontFamily : string) {
 
@@ -24,12 +25,11 @@ export function setStyles(range : object, comand : string, value : string = '') 
             document.execCommand(comand, false, value)
         }
         else {
-
             $stylesElem.push( {comand, value} )
-            $stylesElem.forEach(item => document.execCommand(item.comand, false, item.value))
-
+            $stylesElem.forEach(item => {
+                document.execCommand(item.comand, false, item.value)
+            })
         }
-
     }
 }
 
@@ -95,6 +95,24 @@ export function checkNodeImageOrNot(target : HTMLElement, pageDiv : HTMLDivEleme
             .forEach(item => item.classList.remove('activeImage'))
 
         return false
+    }
+
+}
+
+
+export function emitterImageMargin(styles : any) {
+
+    const imageMarginLeft = +styles.marginLeft.split('px')[0]
+    const imageMarginRight = +styles.marginRight.split('px')[0]
+
+    if(imageMarginLeft > imageMarginRight) {
+        emitter.emit('IMAGE__SIDE', 'right')
+    }
+    else if (imageMarginRight > imageMarginLeft) {
+        emitter.emit('IMAGE__SIDE', 'left')
+    }
+    else if (imageMarginRight === imageMarginLeft) {
+        emitter.emit('IMAGE__SIDE', 'center')
     }
 
 }

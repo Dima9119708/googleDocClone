@@ -1,4 +1,5 @@
 import React from "react";
+import {paddingBottom, paddingTop} from "../../MainBlock";
 
 export const handleMouseLeftSlide = (
                        e : React.MouseEvent,
@@ -8,13 +9,13 @@ export const handleMouseLeftSlide = (
 
     const target = e.currentTarget as HTMLDivElement
     const pos = target.getBoundingClientRect()
-    const height = +target.style.height.split('px')[0]
 
-    const pagePadding = +divPage!.style.paddingTop.split('px')[0]
+    const pagePadding = paddingTop
     const heightPage = divPage!.scrollHeight
 
     const lowerSlideDiv = $lowerSlide.current! as HTMLDivElement
     const lowerSlideDivHeight = +lowerSlideDiv.style.height.split('px')[0]
+
     const calcMaxHeight = heightPage - lowerSlideDivHeight - 200
 
     let flagDifference = true
@@ -31,7 +32,7 @@ export const handleMouseLeftSlide = (
         }
 
         const delta = (e.y + difference) - pos.bottom
-        heightCalc = height + delta
+        heightCalc = pos.height + delta
 
         if (heightCalc > pagePadding + 5 && heightCalc < calcMaxHeight) {
             target.style.height = `${ heightCalc }px`
@@ -39,10 +40,13 @@ export const handleMouseLeftSlide = (
     }
 
     document.onmouseup = (e) => {
+
         document.onmousemove = null
         document.onmouseup = null
-        const currentHeight = +target.style.height.split('px')[0]
-        const result = currentHeight - pagePadding
+
+        const currentHeight = target.getBoundingClientRect()
+        const result = currentHeight.height - pagePadding
+
         dispatchCallback('lower', result)
     }
 }
@@ -55,9 +59,8 @@ export const handleMouseRightSlide = (
 
     const target = e.currentTarget as HTMLDivElement
     const pos = target.getBoundingClientRect()
-    const height = +target.style.height.split('px')[0]
 
-    const pagePadding = +divPage!.style.paddingBottom.split('px')[0]
+    const pagePadding = paddingBottom
     const heightPage = divPage!.scrollHeight
 
     const upperSlideDiv = $upperSlide.current! as HTMLDivElement
@@ -78,7 +81,7 @@ export const handleMouseRightSlide = (
         }
 
         const delta = (e.y + difference) - pos.bottom
-        heightCalc = delta < 0 ? height + Math.abs(delta) : height - delta
+        heightCalc = delta < 0 ? pos.height + Math.abs(delta) : pos.height - delta
 
         if (heightCalc > pagePadding + 5 && heightCalc < calcMaxHeight) {
             target.style.height = `${ heightCalc }px`
@@ -86,10 +89,13 @@ export const handleMouseRightSlide = (
     }
 
     document.onmouseup = (e) => {
+
         document.onmousemove = null
         document.onmouseup = null
-        const currentHeight = +target.style.height.split('px')[0]
-        const result = currentHeight - pagePadding
+
+        const currentHeight = target.getBoundingClientRect()
+        const result = currentHeight.height - pagePadding
+
         dispatchCallback('upper', result)
     }
 }

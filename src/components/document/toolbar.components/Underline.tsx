@@ -8,21 +8,21 @@ import {setStyles} from "../mainBlock.components/page/page.functions";
 import {emitter} from "../../../Emitter/emitter";
 
 
-const { textDecoration } = defaultPageStyle
+const { underline } = defaultPageStyle
 
-export const TextDecoration = () => {
+export const Underline = () => {
 
-    const [underlinedActive, setUnderlined] = React.useState(textDecoration)
+    const [underlined, setUnderlined] = React.useState(underline)
     const { range } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
 
 
     React.useEffect(() => {
-        emitter.on('TEXT_DECORATION', TEXT_DECORATION => setUnderlined(TEXT_DECORATION))
+        emitter.on('UNDERLINE', TEXT_DECORATION => setUnderlined(TEXT_DECORATION))
     }, [])
 
 
     const underlinedHandler = () => {
-        setUnderlined(underlinedActive === 'underline' ? 'none' : 'underline')
+        setUnderlined(underlined === 'underline' ? 'none' : 'underline')
         setStyles(range, 'underline')
     }
 
@@ -32,8 +32,8 @@ export const TextDecoration = () => {
                 onClick={underlinedHandler}
                 style={{
                     marginRight : '8px',
-                    backgroundColor : underlinedActive === 'underline' ? 'rgb(232, 240, 254)' : '',
-                    color : underlinedActive === 'underline' ? 'rgb(26, 115, 232)' : '',
+                    backgroundColor : underlined === 'underline' ? 'rgb(232, 240, 254)' : '',
+                    color : underlined === 'underline' ? 'rgb(26, 115, 232)' : '',
                     borderRadius : '2px'
                 }}
             />

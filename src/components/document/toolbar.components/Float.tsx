@@ -49,8 +49,7 @@ export const Float = () => {
                 onClick={() => changeFloat('left')}
                 style={{
                     marginRight: '14px',
-                    transform: 'scale(1.4)',
-                    padding : float === 'left' ? '2px' : '',
+                    transform: 'scale(1.2)',
                     backgroundColor : float === 'left' ? 'rgb(232, 240, 254)' : '',
                     color : float === 'left' ? 'rgb(26, 115, 232)' : '',
             }} />
@@ -61,8 +60,7 @@ export const Float = () => {
                 onClick={() => changeFloat('right')}
                 style={{
                     marginRight: '8px',
-                    transform: 'scale(1.4) rotate(-180deg)',
-                    padding : float === 'right' ? '2px' : '',
+                    transform: 'scale(1.2) rotate(-180deg)',
                     backgroundColor : float === 'right' ? 'rgb(232, 240, 254)' : '',
                     color : float === 'right' ? 'rgb(26, 115, 232)' : '',
             }} />
@@ -70,6 +68,7 @@ export const Float = () => {
 
         <Tooltip title="Удалить обтекание" placement="top">
             <BackspaceIcon
+                style={{transform: 'scale(0.8)'}}
                 onClick={() => changeFloat('none')}
             />
         </Tooltip>

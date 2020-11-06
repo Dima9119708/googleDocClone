@@ -17,6 +17,10 @@ export const PanelSort : FunctionComponent = () => {
     const dispatch = useDispatch()
     const [$openSortPopup, setSortPopup] = React.useState<any>(null)
 
+    React.useEffect(() => {
+        dispatch(SET_SORT_AC('По дате просмотра'))
+    }, [])
+
     const changePopupSortItem = (item : string) => {
         dispatch(SET_SORT_AC(item))
     }
@@ -70,7 +74,7 @@ export const PanelSort : FunctionComponent = () => {
                             fontSize : '14px'
                         }}
                     >
-                        По дате просмотра
+                        {optionItem}
                     </Grid>
 
                     <Grid

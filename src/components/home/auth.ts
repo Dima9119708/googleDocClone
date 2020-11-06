@@ -1,28 +1,19 @@
 import * as firebase from 'firebase/app';
 import 'firebase/database';
 import { SET_DATA_ACTION } from '../../redux/homeReducer/homeAction';
+import {userID} from "../../core/different";
 
 export function authInApp(dispatch : any) : void {
 
-    const key = window.localStorage.getItem('googleReactKey')
-
-    if (!key) {
-
-        const idKey = Date.now()
-        window.localStorage.setItem('googleReactKey', idKey.toString())
-        dispatch(SET_DATA_ACTION({}))
-
-        return
-    }
+    const key = userID()
 
     ;( async () => {
         await firebase.database()
-            .ref(`/docReact/${key}`)
-            .on('value', function (value) {
-
+            .ref(`/docReact/${key}/list/`)
+            .once('value')
+            .then(value => {
                 const result = value.val() ? value.val() : {}
                 dispatch(SET_DATA_ACTION(result))
-
             })
     })();
 }

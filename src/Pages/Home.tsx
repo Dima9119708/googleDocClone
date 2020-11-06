@@ -8,6 +8,7 @@ import { authInApp } from "../components/home/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {homeReducerTYPE} from "../redux/store";
 import {Preloader} from "../components/home/Preloader";
+import SimpleBar from "simplebar-react";
 
 
 export const Home : FunctionComponent = () => {
@@ -16,6 +17,7 @@ export const Home : FunctionComponent = () => {
     const userData = useSelector(({homeReducer} : homeReducerTYPE) => homeReducer.dataUser)
 
     React.useEffect( authInApp.bind(null, dispatch), [])
+
 
     if (!userData) {
         return (
@@ -35,13 +37,17 @@ export const Home : FunctionComponent = () => {
 
     return (
         <>
-            <Header />
+            <SimpleBar style={{ maxHeight : '100vh' }}>
 
-            <AddDoc />
+                <Header />
 
-            <PanelSort />
+                <AddDoc />
 
-            <AllDocList />
+                <PanelSort />
+
+                <AllDocList />
+
+            </SimpleBar>
         </>
     )
 }

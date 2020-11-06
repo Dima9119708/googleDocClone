@@ -6,9 +6,9 @@ import {
     PADDING_TOP,
     PADDING_BOTTOM,
     LINE_HEIGHT,
-    HEADER_SLIDE_DOM,
-    TARGET_NODE,
     IMAGE,
+    TITLE,
+    PAGE_SERVER_DATA
 } from "./docConstants";
 
 
@@ -25,6 +25,31 @@ export const LINK_PRINT_DOM_ACTION = (DOM : HTMLDivElement) : LINK_PRINT_DOM_TYP
 }
 
 
+type TITLE_PAGE_TYPE = {
+    type : typeof TITLE,
+    title : string
+}
+export const TITLE_PAGE_ACTION = (title : string) : TITLE_PAGE_TYPE => {
+
+    return {
+        type : TITLE,
+        title
+    }
+}
+
+type PAGE_SERVER_DATA_TYPE = {
+    type : typeof PAGE_SERVER_DATA,
+    data : object
+}
+export const PAGE_SERVER_DATA_ACTION = (data : object) : PAGE_SERVER_DATA_TYPE => {
+
+    return {
+        type : PAGE_SERVER_DATA,
+        data
+    }
+}
+
+
 type SET_PAGE_DOM_TYPE = {
     type : typeof SET_PAGE_DOM,
     DOM : HTMLDivElement
@@ -32,17 +57,6 @@ type SET_PAGE_DOM_TYPE = {
 export const SET_PAGE_DOM_ACTION = (DOM : HTMLDivElement) : SET_PAGE_DOM_TYPE => {
     return {
         type : SET_PAGE_DOM,
-        DOM
-    }
-}
-
-type HEADER_SLIDE_DOM_TYPE = {
-    type : typeof HEADER_SLIDE_DOM,
-    DOM : HTMLDivElement
-}
-export const HEADER_SLIDE_DOM_ACTION = (DOM : HTMLDivElement) : HEADER_SLIDE_DOM_TYPE => {
-    return {
-        type : HEADER_SLIDE_DOM,
         DOM
     }
 }
@@ -102,17 +116,6 @@ export const LINE_HEIGHT_ACTION = (lineHeight : number) : LINE_HEIGHT_TYPE => {
     return {
         type : LINE_HEIGHT,
         lineHeight
-    }
-}
-
-type TARGET_NODE_TYPE = {
-    type : typeof TARGET_NODE,
-    DOM : HTMLDivElement
-}
-export const TARGET_NODE_ACTION = (DOM : HTMLDivElement) : TARGET_NODE_TYPE => {
-    return {
-        type : TARGET_NODE,
-        DOM
     }
 }
 

@@ -8,6 +8,9 @@ import {SET_PAGE_DOM_ACTION} from "../../redux/documentRecuder/docAction";
 import SimpleBar from 'simplebar-react';
 
 
+export const paddingTop = 30
+export const paddingBottom = 30
+
 export const MainBlock = () => {
 
     const pageDom = React.useRef(null)
@@ -30,20 +33,20 @@ export const MainBlock = () => {
                     autoHide={false}
                     style={{
                         maxHeight : '80vh',
-                        paddingTop: '30px',
-                        paddingBottom : '30px',
+                        paddingTop,
+                        paddingBottom,
                         backgroundColor : '#F8F9FA'
                     }}>
 
                     <div style={{position : 'relative'}}>
 
                         <LeftSlider />
-
-                        <RootRef rootRef={pageDom}>
-                             <Page />
+                        <RootRef rootRef={pageDom} >
+                            <Page />
                         </RootRef>
 
                     </div>
+
             </SimpleBar>
     </>)
 }

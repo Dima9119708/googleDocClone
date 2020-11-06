@@ -7,10 +7,11 @@ import {
     SET_PAGE_DOM,
     RANGE,
     LINE_HEIGHT,
-    HEADER_SLIDE_DOM,
-    TARGET_NODE,
-    IMAGE
+    TITLE,
+    IMAGE,
+    PAGE_SERVER_DATA
 } from "./docConstants";
+
 
 
 export const defaultPageStyle = {
@@ -18,29 +19,27 @@ export const defaultPageStyle = {
     fontSizeView : '16',
     fontWeight : '400',
     fontStyle : 'normal',
-    textDecoration : 'none',
+    underline : 'none',
     fontFamily : 'Roboto',
     color : '#000',
     bg : '#fff',
+    lineThrough : 'none',
     textAlign : 'left'
 }
 
 export type defaultPageStyleType = typeof defaultPageStyle
 
 const initialState = {
+
     divPage : null,
-    headerSlideDom : null,
     linkPrintDom : null,
-    targetNode : null,
-    changeStyle : false,
     image : false,
     page : {
-        minHeight : 1200,
-        width : 800,
-        paddingTop : 90,
-        paddingBottom : 90,
-        paddingLeft : 90,
-        paddingRight : 90,
+        title : 'Новый документ',
+        paddingTop : 30,
+        paddingBottom : 30,
+        paddingLeft : 50,
+        paddingRight : 50,
         lineHeight : 1.2,
         innerHTML : '',
     },
@@ -52,6 +51,15 @@ export type InitialStateDoc = typeof initialState
 export function docReducer(state = initialState, action : any) {
 
     switch (action.type) {
+
+
+        case PAGE_SERVER_DATA :
+
+            state.page = {...state.page, ...action.data}
+
+            return {
+                ...state,
+            }
 
         case LINK_PRINT_DOM :
 
@@ -67,20 +75,6 @@ export function docReducer(state = initialState, action : any) {
                 divPage : action.DOM
             }
 
-        case TARGET_NODE :
-
-            return {
-                ...state,
-                targetNode : action.DOM
-            }
-
-        case HEADER_SLIDE_DOM :
-
-            return {
-                ...state,
-                headerSlideDom : action.DOM
-            }
-
         case RANGE :
 
             return {
@@ -93,6 +87,14 @@ export function docReducer(state = initialState, action : any) {
             return {
                 ...state,
                 image : action.flag
+            }
+
+        case TITLE :
+
+            state.page.title = action.title
+
+            return {
+                ...state,
             }
 
         case PADDING_TOP :

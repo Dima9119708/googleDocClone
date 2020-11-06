@@ -9,7 +9,7 @@ import {SET_SORT_AC} from "../../redux/homeReducer/homeAction";
 
 export const PanelSort : FunctionComponent = () => {
 
-    const sortPopupOptions : string[] = ['По названию', 'По дате просмотра']
+    const sortPopupOptions : string[] = ['По названию', 'По дате изменения']
 
     const optionItem = useSelector(  ( { homeReducer } : homeReducerTYPE) => homeReducer.sort)
     const userData = useSelector(({homeReducer} : homeReducerTYPE) => homeReducer.dataUser)
@@ -18,7 +18,7 @@ export const PanelSort : FunctionComponent = () => {
     const [$openSortPopup, setSortPopup] = React.useState<any>(null)
 
     React.useEffect(() => {
-        dispatch(SET_SORT_AC('По дате просмотра'))
+        dispatch(SET_SORT_AC(sortPopupOptions[1]))
     }, [])
 
     const changePopupSortItem = (item : string) => {

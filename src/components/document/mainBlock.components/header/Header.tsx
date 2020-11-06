@@ -7,6 +7,7 @@ import {
     PADDING_LEFT_ACTION,
     PADDING_RIGHT_ACTION
 } from "../../../../redux/documentRecuder/docAction";
+import {widthPage} from "../page/Page";
 
 export const Header = () => {
 
@@ -33,7 +34,7 @@ export const Header = () => {
                     justifyContent : 'space-between',
                     position: "relative",
                     height : '100%',
-                    width : page.width,
+                    width : widthPage,
                     margin : '0 auto',
                     backgroundColor : '#ffffff'
                 }}
@@ -51,7 +52,7 @@ export const Header = () => {
                             height : '100%',
                             width : page.paddingLeft,
                             cursor : 'col-resize',
-                            backgroundColor : '#959595'
+                            backgroundColor : '#aeaeae'
                         }}
                     >
                     </div>
@@ -73,7 +74,7 @@ export const Header = () => {
                             height : '100%',
                             width : page.paddingRight,
                             cursor : 'col-resize',
-                            backgroundColor : '#959595'
+                            backgroundColor : '#aeaeae'
                         }}
                     />
                 </Box>

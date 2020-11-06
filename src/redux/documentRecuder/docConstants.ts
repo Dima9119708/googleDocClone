@@ -7,7 +7,6 @@ export const PADDING_TOP = 'PADDING_TOP'
 export const PADDING_BOTTOM = 'PADDING_BOTTOM'
 export const LINE_HEIGHT = 'LINE_HEIGHT'
 export const TITLE = 'TITLE'
-export const PAGE_INNERHTML = 'PAGE_INNERHTML'
 export const PAGE_SERVER_DATA = 'PAGE_SERVER_DATA'
 
 export const STYLES = 'STYLES'

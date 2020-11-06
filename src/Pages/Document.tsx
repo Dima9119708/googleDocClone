@@ -7,38 +7,17 @@ import {docReducerTYPE} from "../redux/store";
 import { useParams } from "react-router-dom";
 import * as firebase from "firebase";
 import { PAGE_SERVER_DATA_ACTION } from "../redux/documentRecuder/docAction";
+import {Preloader} from "../components/home/Preloader";
+import {POST_LIST, POST_DATA_USER} from "../core/postDataServer";
+import {userID} from "../core/different";
+import {emitter} from "../Emitter/emitter";
 
-
-const formatMonth = (month : string) => {
-    return month[0].toLowerCase() + month.slice(1, month.length)
-}
-
-const addMonths : string[] = [
-    'Янв',
-    'Фев',
-    'Мар',
-    'Апр',
-    'Май',
-    'Июн',
-    'Июл',
-    'Авг',
-    'Сен',
-    'Окт',
-    'Ноя',
-    'Дек'
-]
-
-const date = new Date().toLocaleDateString()
-const month = new Date().getMonth()
-const parseDate = date.split(".")
-const generateDate = `${parseDate[0]} ${formatMonth(addMonths[month])}. ${parseDate[2]} г.`
-const userID = localStorage.getItem('googleReactKey')
 
 export const Document = () => {
 
     const [ getDataServer, setDATA] = React.useState(false)
     const { key } = useParams();
-    const { page, linkPrintDom } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
+    const { page, divPage } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const dispatch = useDispatch()
 
 
@@ -47,13 +26,12 @@ export const Document = () => {
         ;( async () => {
             await firebase
                 .database()
-                .ref(`/docReact/${userID}/docsDATA/${key}/`)
-                .on('value', value => {
-
-                    const val = value.val() ? JSON.parse(value.val()) : {};
+                .ref(`/docReact/${userID()}/docsDATA/${key}/`)
+                .once('value')
+                .then(value => {
+                    const val = value.val() ? value.val() : {};
                     dispatch(PAGE_SERVER_DATA_ACTION(val));
                     setDATA(true)
-
                 })
         })();
 
@@ -62,31 +40,63 @@ export const Document = () => {
 
     React.useEffect(() => {
 
-        if (getDataServer) {
+        if(divPage) {
 
-            firebase.database()
-                .ref(`/docReact/${userID}/list/${key}`)
-                .set({
-                    name : page.title,
-                    id : key,
-                    date : generateDate
-                })
+            let prevHTML = ''
 
-            firebase.database()
-                 .ref(`/docReact/${userID}/docsDATA/${key}`)
-                 .set( JSON.stringify(page) )
+            const $page = divPage! as HTMLDivElement
+            const currentHTML = $page.children[0].innerHTML
+            const pageDataJSON = JSON.stringify(page)
 
+            prevHTML = currentHTML + pageDataJSON
+
+            setInterval(() => {
+
+                const currentHTML = $page.children[0].innerHTML
+                const pageDataJSON = JSON.stringify(page)
+
+                if (prevHTML !== currentHTML + pageDataJSON ) {
+
+                    POST_LIST(key, page.title)
+                    POST_DATA_USER(key, { ...page, innerHTML : currentHTML})
+
+                    emitter.emit('SAVE_DATA', true)
+                }
+                else {
+                    emitter.emit('SAVE_DATA', false)
+                }
+
+                prevHTML = currentHTML + pageDataJSON
+
+            }, 300)
         }
 
-    }, [
-        page.lineHeight,
-        page.paddingRight,
-        page.paddingLeft,
-        page.paddingBottom,
-        page.paddingTop,
-        page.innerHTML,
-        page.title,
-    ])
+    }, [divPage])
+
+
+    if(!getDataServer) {
+        return <>
+            <div style={{
+                position : 'relative',
+                padding : '20px 20px',
+                width : 100
+            }}>
+                <Preloader height={'20px'} width={'20px'} />
+            </div>
+            <Toolbar />
+            <div style={{
+                position : 'absolute',
+                top : 0,
+                left : 0,
+                right : 0,
+                bottom : 0,
+                zIndex : 999,
+            }}>
+                <Preloader height={'50px'} width={'50px'} />
+            </div>
+        </>
+    }
+
 
     return (
         <>

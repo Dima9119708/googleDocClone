@@ -1,4 +1,4 @@
-import {SET_DATA, SET_DELETE_DOC_LIST, SET_NEW_DOC, SET_NEW_NAME, SET_SORT} from "./homeConstants";
+import {SET_DATA, SET_DELETE_DOC_LIST, SET_NEW_NAME, SET_SORT} from "./homeConstants";
 
 
 type ActionTYPE = {
@@ -12,7 +12,8 @@ type ActionTYPE = {
 type dataUserObjectType = {
     name : string,
     id : string
-    date : string
+    date : string,
+    change : string
 }
 
 type dataUserTYPE = {
@@ -35,6 +36,48 @@ export function homeReducer(state = initialState, action : ActionTYPE) {
 
         case SET_SORT :
 
+            if (action.payload === 'По дате просмотра') {
+
+                const data = Object.keys(state.dataUser!)
+                                .map(item => state.dataUser![item])
+                                .sort((a,b) => {
+                                    if ( a.change > b.change ){
+                                        return -1;
+                                    }
+                                    if ( a.change < b.change ){
+                                        return 1;
+                                    }
+                                    return 0;
+                                })
+                                .reduce((acc : any , item) => {
+                                    acc[item.id] = item
+                                    return acc
+                                } ,{})
+
+
+                state.dataUser = {...data}
+            }
+            else if (action.payload === 'По названию') {
+
+                const data = Object.keys(state.dataUser!)
+                            .map(item => state.dataUser![item])
+                            .sort((a,b) => {
+                                if ( a.name < b.name ){
+                                    return -1;
+                                }
+                                if ( a.name > b.name ){
+                                    return 1;
+                                }
+                                return 0;
+                            })
+                            .reduce((acc : any, item) => {
+                                acc[item.id] = item
+                                return acc
+                            }, {})
+
+                state.dataUser = {...data}
+            }
+
             return {
                 ...state,
                 sort : action.payload
@@ -45,19 +88,6 @@ export function homeReducer(state = initialState, action : ActionTYPE) {
             return {
                 ...state,
                 dataUser : action.payload
-            }
-
-        case SET_NEW_DOC :
-
-            return {
-                ...state,
-                dataUser : {
-                    ...state.dataUser,
-                    [action.key] : {
-                        title : action.title,
-                        date : action.date
-                    }
-                }
             }
 
         case SET_DELETE_DOC_LIST :

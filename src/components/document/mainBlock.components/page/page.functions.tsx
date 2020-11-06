@@ -102,8 +102,9 @@ export function checkNodeImageOrNot(target : HTMLElement, pageDiv : HTMLDivEleme
 
 export function emitterImageMargin(styles : any) {
 
-    const imageMarginLeft = +styles.marginLeft.split('px')[0]
-    const imageMarginRight = +styles.marginRight.split('px')[0]
+    const imageMarginLeft = Math.floor( +styles.marginLeft.split('px')[0] )
+    const imageMarginRight = Math.floor( +styles.marginRight.split('px')[0] )
+
 
     if(imageMarginLeft > imageMarginRight) {
         emitter.emit('IMAGE__SIDE', 'right')

@@ -2,7 +2,7 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     IMAGE_ACTION,
-    LINK_PRINT_DOM_ACTION, PAGE_INNERHTML_ACTION,
+    LINK_PRINT_DOM_ACTION,
 } from "../../../../redux/documentRecuder/docAction";
 import {docReducerTYPE} from "../../../../redux/store";
 import {defaultPageStyle} from "../../../../redux/documentRecuder/docReducer";
@@ -13,6 +13,7 @@ import { emitter } from "../../../../Emitter/emitter";
 
 
 export const widthPage = 800
+export const heightPage = 1200
 
 const { fontFamily } = defaultPageStyle
 
@@ -24,6 +25,7 @@ export const Page = () => {
     const { page } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const $divContent = React.useRef<HTMLDivElement>(null)
     const [pageDiv, setPageDiv] = React.useState<HTMLDivElement | null>(null)
+
     const dispatch = useDispatch()
 
 
@@ -32,26 +34,25 @@ export const Page = () => {
         const div = $divContent.current!.children[0] as HTMLDivElement
         div.focus()
         div.innerHTML = page.innerHTML
+        document.title = page.title
 
         const range = document.getSelection()!.getRangeAt(0)
+
+        const currentImage = pageDiv?.querySelector('.activeImage')
+        if (currentImage) currentImage.classList.remove('activeImage')
 
         dispatch(LINK_PRINT_DOM_ACTION(div))
         dispatch(RANGE_ACTION(range))
 
         setPageDiv(div)
-
         document.execCommand('styleWithCSS', false, 'true')
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [pageDiv])
 
 
     const handleInput = (e : React.FormEvent<HTMLDivElement>) => {
-
         $stylesElem.splice(0, $stylesElem.length)
-
-        const { innerHTML } = $divContent.current!.children[0]
-        dispatch(PAGE_INNERHTML_ACTION(innerHTML))
     }
 
 
@@ -94,7 +95,7 @@ export const Page = () => {
         const getFontFamily = formatGetFontFamily(styles.fontFamily)
         const getColor = styles.color
         const getBG = styles.backgroundColor
-        const getTextDecoration = styles.webkitTextDecorationsInEffect.split(' ')
+        const getTextDecoration = styles?.webkitTextDecorationsInEffect?.split(' ')
 
 
         const image = checkNodeImageOrNot(target, pageDiv)
@@ -122,8 +123,8 @@ export const Page = () => {
             <div
                 ref={$divContent}
                 style={{
-                    minHeight : page.minHeight,
-                    width : page.width,
+                    minHeight : heightPage,
+                    width : widthPage,
                     margin : '0 auto',
                     paddingTop : page.paddingTop,
                     paddingBottom : page.paddingBottom,
@@ -144,6 +145,7 @@ export const Page = () => {
                         onKeyDown={handleKey}
                         onInput={handleInput}
                         contentEditable={true}
+                        spellCheck={"false"}
                         suppressContentEditableWarning={true}
                         className="page"
                     >

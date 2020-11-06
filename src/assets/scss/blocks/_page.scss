@@ -1,3 +1,20 @@
+.header__doc-title {
+  min-width: 100px;
+  font-size: 18px;
+  padding: 0 10px;
+  margin-right: 10px;
+  border: 0;
+
+  &:focus {
+    border: 2px solid #1a73e8 !important;
+    border-radius: 4px;
+  }
+
+  &:hover {
+    border: 1px solid #e5e5e5;
+  }
+}
+
 .page {
   background-color: #ffffff;
   font-size: 16px;

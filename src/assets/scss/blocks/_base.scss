@@ -34,12 +34,17 @@ a:link {
   color: #000000;
 }
 
-.item__hover:hover {
-  cursor: pointer;
-  background-color: rgba(159, 192, 227, 0.3);
-  border-radius: 20px;
-  border: 0 !important;
+
+.item__hover {
+
+  &:hover {
+    cursor: pointer;
+    background-color: #e8f0fe;
+    border-radius: 20px;
+    border: 0 !important;
+  }
 }
+
 
 .unselectable {
   -webkit-touch-callout: none; /* iOS Safari */

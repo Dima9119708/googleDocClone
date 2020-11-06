@@ -9,7 +9,7 @@ import {
     LINE_HEIGHT,
     TITLE,
     IMAGE,
-    PAGE_INNERHTML, PAGE_SERVER_DATA
+    PAGE_SERVER_DATA
 } from "./docConstants";
 
 
@@ -36,8 +36,6 @@ const initialState = {
     image : false,
     page : {
         title : 'Новый документ',
-        minHeight : 1200,
-        width : 800,
         paddingTop : 30,
         paddingBottom : 30,
         paddingLeft : 50,
@@ -94,14 +92,6 @@ export function docReducer(state = initialState, action : any) {
         case TITLE :
 
             state.page.title = action.title
-
-            return {
-                ...state,
-            }
-
-        case PAGE_INNERHTML :
-
-            state.page.innerHTML = action.innerHTML
 
             return {
                 ...state,

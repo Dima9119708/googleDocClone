@@ -47,7 +47,7 @@ export const LeftSlider = () => {
                         width : 15,
                         cursor : 'row-resize',
                         zIndex : 5,
-                        backgroundColor : '#959595'
+                        backgroundColor : '#aeaeae'
                     }}
                 />
             </RootRef>
@@ -62,7 +62,7 @@ export const LeftSlider = () => {
                         height : paddingBottom + page.paddingBottom,
                         width : 15,
                         cursor : 'row-resize',
-                        backgroundColor : '#959595'
+                        backgroundColor : '#aeaeae'
                 }}/>
             </RootRef>
         </Box>

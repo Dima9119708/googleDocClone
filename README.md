@@ -12,3 +12,4 @@
 6. React-Router
 7. Debounce
 8. Simplebar
+9. Emitter

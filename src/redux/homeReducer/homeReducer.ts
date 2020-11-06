@@ -9,7 +9,7 @@ type ActionTYPE = {
     key : string
 }
 
-type dataUserObjectType = {
+export type dataUserObjectType = {
     name : string,
     id : string
     date : string,
@@ -36,7 +36,7 @@ export function homeReducer(state = initialState, action : ActionTYPE) {
 
         case SET_SORT :
 
-            if (action.payload === 'По дате просмотра') {
+            if (action.payload === 'По дате изменения') {
 
                 const data = Object.keys(state.dataUser!)
                                 .map(item => state.dataUser![item])

@@ -5,19 +5,26 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import React from "react";
 import {Link, useHistory} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {homeReducerTYPE} from "../../redux/store";
+import { dataUserObjectType } from "../../redux/homeReducer/homeReducer";
+
+
 
 export const Header : React.FC = () => {
 
+    const [data, setDATA] = React.useState<Array<dataUserObjectType>>([])
+    const userData = useSelector(({homeReducer} : homeReducerTYPE) => homeReducer.dataUser)
     const [deleteTextInput, setDeleteTextInput] = React.useState<'none' | 'block'>('none')
     const [searchList, setSearchList] = React.useState<'none' | 'block'>('none')
     const $parentInput = React.useRef<HTMLDivElement>(null)
     const $input = React.useRef<HTMLInputElement>(null)
 
-    const { go } = useHistory()
+    React.useEffect(() => {
+        document.onclick = e => setSearchList('none')
+    }, [])
 
-    const reloadPage = () => {
-        go(0)
-    }
+    const reloadPage = () => window.location.reload()
 
     const onChange = (e : React.ChangeEvent<HTMLInputElement> ) => {
         const { value } = e.currentTarget
@@ -30,6 +37,19 @@ export const Header : React.FC = () => {
             setDeleteTextInput('none')
             setSearchList('none')
         }
+
+        const data = Object.keys(userData!)
+                           .map(item => userData![item])
+                           .reduce((acc : any,item) => {
+
+                               if (item.name.toLocaleLowerCase().includes(value.toLocaleLowerCase())) {
+                                   acc.push(item)
+                               }
+
+                               return acc
+
+                           }, [])
+        setDATA(data)
     }
 
     const delTextInput = () => {
@@ -45,7 +65,6 @@ export const Header : React.FC = () => {
     const blurInput = () => {
         $parentInput.current!.classList.remove('header__input-focus')
         $parentInput.current!.classList.add('header__input-blur')
-        setSearchList('none')
     }
 
     return (
@@ -53,9 +72,7 @@ export const Header : React.FC = () => {
             container
             direction="row"
             alignItems="center"
-            style={{
-                padding : '8px 30px',
-            }}
+            style={{padding : '8px 30px'}}
         >
                 <Grid
                     container
@@ -102,7 +119,7 @@ export const Header : React.FC = () => {
                     borderRadius : "10px"
                 }}
             >
-                <IconButton>
+                <IconButton onClick={reloadPage}>
                     <SearchIcon/>
                 </IconButton>
                 <Input
@@ -130,136 +147,58 @@ export const Header : React.FC = () => {
 
                 <Grid
                     className="header__doc-search-list"
-                    style={{
-                        display : searchList
-                    }}
+                    style={{ display : searchList }}
                 >
 
-                    <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        justify="space-between"
-                        className="header__doc-search-list-item"
-                    >
-                        <Grid
-                            container
-                            alignItems="center"
-                            direction="row"
-                            item
-                            xs={10}
+                    { !data.length
+                        ? <div
+                            style={{
+                                fontSize : '16px',
+                                fontWeight : 500,
+                                textAlign : 'center'
+                            }}
                         >
-                            <AssignmentIcon
-                                style = {{
-                                    color : '#0b53ed',
-                                    marginRight: '5px',
-                                    fontSize : '20px'
-                                }}
-                            />
-                            <h3
-                                style={{
-                                    fontSize : '16px',
-                                    fontWeight : 'normal'
-                                }}
-                            >Документ от 26 мая 2021505050050404</h3>
-                        </Grid>
-                        <time>13.09.20</time>
+                            Ничего не найдено
+                        </div>
 
-                    </Grid>
-                    <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        justify="space-between"
-                        className="header__doc-search-list-item"
-                    >
-                        <Grid
-                            container
-                            alignItems="center"
-                            direction="row"
-                            item
-                            xs={10}
-                        >
-                            <AssignmentIcon
-                                style = {{
-                                    color : '#0b53ed',
-                                    marginRight: '5px',
-                                    fontSize : '20px'
-                                }}
-                            />
-                            <h3
-                                style={{
-                                    fontSize : '16px',
-                                    fontWeight : 'normal'
-                                }}
-                            >Документ от 26 мая 2021505050050404</h3>
-                        </Grid>
-                        <time>13.09.20</time>
+                        : data.map(item => {
+                            return(
+                                <Link to={'doc/' + item.id}>
+                                    <Grid
+                                        key={item.id}
+                                        container
+                                        direction="row"
+                                        alignItems="center"
+                                        justify="space-between"
+                                        className="header__doc-search-list-item"
+                                    >
+                                        <Grid
+                                            container
+                                            alignItems="center"
+                                            direction="row"
+                                            item
+                                            xs={10}
+                                        >
+                                            <AssignmentIcon
+                                                style = {{
+                                                    color : '#0b53ed',
+                                                    marginRight: '5px',
+                                                    fontSize : '20px'
+                                                }}
+                                            />
+                                            <h3 style={{
+                                                    fontSize : '16px',
+                                                    fontWeight : 500
+                                                }}
+                                            >
+                                                { item.name }
+                                            </h3>
 
-                    </Grid>
-                    <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        justify="space-between"
-                        className="header__doc-search-list-item"
-                    >
-                        <Grid
-                            container
-                            alignItems="center"
-                            direction="row"
-                            item
-                            xs={10}
-                        >
-                            <AssignmentIcon
-                                style = {{
-                                    color : '#0b53ed',
-                                    marginRight: '5px',
-                                    fontSize : '20px'
-                                }}
-                            />
-                            <h3
-                                style={{
-                                    fontSize : '16px',
-                                    fontWeight : 'normal'
-                                }}
-                            >Документ от 26 мая 2021505050050404</h3>
-                        </Grid>
-                        <time>13.09.20</time>
-
-                    </Grid>
-                    <Grid
-                        container
-                        direction="row"
-                        alignItems="center"
-                        justify="space-between"
-                        className="header__doc-search-list-item"
-                    >
-                        <Grid
-                            container
-                            alignItems="center"
-                            direction="row"
-                            item
-                            xs={10}
-                        >
-                            <AssignmentIcon
-                                style = {{
-                                    color : '#0b53ed',
-                                    marginRight: '5px',
-                                    fontSize : '20px'
-                                }}
-                            />
-                            <h3
-                                style={{
-                                    fontSize : '16px',
-                                    fontWeight : 'normal'
-                                }}
-                            >Документ от 26 мая 2021505050050404</h3>
-                        </Grid>
-                        <time>13.09.20</time>
-
-                    </Grid>
-
+                                        </Grid>
+                                        <time>{ item.date }</time>
+                                   </Grid>
+                            </Link>
+                       )})}
                 </Grid>
             </Grid>
 
@@ -269,11 +208,9 @@ export const Header : React.FC = () => {
                 alignItems="center"
                 justify="flex-end"
                 item
-                xs={3}
-            >
+                xs={3}>
                 <Avatar />
             </Grid>
-
         </Grid>
     )
 }

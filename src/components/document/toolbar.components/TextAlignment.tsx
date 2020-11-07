@@ -4,7 +4,7 @@ import FormatAlignRightIcon from '@material-ui/icons/FormatAlignRight';
 import FormatAlignJustifyIcon from '@material-ui/icons/FormatAlignJustify';
 import {Tooltip} from "antd";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
-import {emitter} from "../../../Emitter/emitter";
+import {emitter} from "../../../core/emitter";
 
 
 const { textAlign : textAlignDef } = defaultPageStyle

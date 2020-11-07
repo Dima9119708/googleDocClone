@@ -8,7 +8,7 @@ import {docReducerTYPE} from "../../../../redux/store";
 import {defaultPageStyle} from "../../../../redux/documentRecuder/docReducer";
 import {checkNodeImageOrNot, formatGetFontFamily, resizeImage, emitterImageMargin} from "./page.functions";
 import {RANGE_ACTION} from "../../../../redux/homeReducer/homeAction";
-import { emitter } from "../../../../Emitter/emitter";
+import { emitter } from "../../../../core/emitter";
 
 
 
@@ -95,7 +95,7 @@ export const Page = () => {
         const getFontFamily = formatGetFontFamily(styles.fontFamily)
         const getColor = styles.color
         const getBG = styles.backgroundColor
-        const getTextDecoration = styles?.webkitTextDecorationsInEffect?.split(' ')
+        const getTextDecoration = styles.webkitTextDecorationsInEffect?.split(' ') || styles.textDecorationLine.split(' ')
 
 
         const image = checkNodeImageOrNot(target, pageDiv)

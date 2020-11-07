@@ -2,11 +2,9 @@ import React from "react";
 import StrikethroughSIcon from '@material-ui/icons/StrikethroughS';
 import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
-import {emitter} from "../../../Emitter/emitter";
+import {emitter} from "../../../core/emitter";
 import {setStyles} from "../mainBlock.components/page/page.functions";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
-import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined";
-import {$stylesElem} from "../mainBlock.components/page/Page";
 import {Tooltip} from "antd";
 
 

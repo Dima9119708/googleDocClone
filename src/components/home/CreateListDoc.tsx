@@ -20,7 +20,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {homeReducerTYPE} from "../../redux/store";
 import {SET_DELETE_DOC_LIST_ACTION, SET_NEW_NAME_ACTION} from "../../redux/homeReducer/homeAction";
 import * as firebase from "firebase";
+import 'firebase/database';
 import {userID} from "../../core/different";
+import {documentPage} from "../../core/link";
 
 
 export const CreateListDoc = ({ id : item } : {id : string}) => {
@@ -103,7 +105,7 @@ export const CreateListDoc = ({ id : item } : {id : string}) => {
                     direction="row"
                 >
                     <Link
-                        to={`/doc/${userData[item].id}`}
+                        to={`${documentPage}${userData[item].id}`}
                         style={{
                             display: 'flex',
                             alignItems: 'center'
@@ -120,7 +122,7 @@ export const CreateListDoc = ({ id : item } : {id : string}) => {
                         item
                         xs={11}>
                         <Link
-                            to={`/doc/${userData[item].id}`}
+                            to={`${documentPage}${userData[item].id}`}
                             style={{
                                 display: 'block',
                                 color: '#000',
@@ -144,7 +146,7 @@ export const CreateListDoc = ({ id : item } : {id : string}) => {
                 xs={4}
             >
                 <Link
-                    to={`/doc/${userData[item].id}`}
+                    to={`${documentPage}${userData[item].id}`}
                     style={{
                         display: 'block',
                         color: '#000'

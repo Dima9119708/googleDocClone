@@ -3,7 +3,7 @@ import {Select, Tooltip} from "antd";
 import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
 import {setStyles} from "../mainBlock.components/page/page.functions";
-import {emitter} from "../../../Emitter/emitter";
+import {emitter} from "../../../core/emitter";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
 
 const { Option } = Select;

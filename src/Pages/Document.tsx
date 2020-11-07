@@ -6,12 +6,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {docReducerTYPE} from "../redux/store";
 import { useParams } from "react-router-dom";
 import * as firebase from "firebase";
+import 'firebase/database';
 import { PAGE_SERVER_DATA_ACTION } from "../redux/documentRecuder/docAction";
 import {Preloader} from "../components/home/Preloader";
 import {POST_LIST, POST_DATA_USER} from "../core/postDataServer";
 import {userID} from "../core/different";
-import {emitter} from "../Emitter/emitter";
-
 
 export const Document = () => {
 
@@ -35,6 +34,7 @@ export const Document = () => {
                 })
         })();
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
 
@@ -56,19 +56,14 @@ export const Document = () => {
                 const pageDataJSON = JSON.stringify(page)
 
                 if (prevHTML !== currentHTML + pageDataJSON ) {
-
                     POST_LIST(key, page.title)
                     POST_DATA_USER(key, { ...page, innerHTML : currentHTML})
+                }
 
-                    emitter.emit('SAVE_DATA', true)
-                }
-                else {
-                    emitter.emit('SAVE_DATA', false)
-                }
 
                 prevHTML = currentHTML + pageDataJSON
 
-            }, 300)
+            }, 200)
         }
 
     }, [divPage])

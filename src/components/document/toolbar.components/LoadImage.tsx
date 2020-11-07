@@ -52,17 +52,20 @@ export const LoadImage = () => {
             reader.onload = () => {
 
                 const createImageDiv = `
-                   <div style="min-height: 20px"></div>
-                   <div 
-                         contenteditable="false"
-                         class="image unselectable" 
-                         style="background-image: url(${reader.result})">
-                    <div style="cursor: ew-resize" data-rightCenter="rightCenter"></div>
-                    <div style="cursor: nwse-resize" data-rightBottom="rightBottom"></div>
-                    <div style="cursor: ns-resize" data-bottomCenter="bottomCenter"></div>
-                    <div style="cursor: ew-resize" data-leftCenter="leftCenter"></div>
-                </div>
-                <div style="min-height: 20px"></div>
+                   <div>
+                       <div style="min-height: 20px">...</div>
+                       <div
+                             contenteditable="false"
+                             class="image unselectable" 
+                             style="background-image: url(${reader.result})"
+                             > 
+                                <div style="cursor: ew-resize" data-rightCenter="rightCenter"></div>
+                                <div style="cursor: nwse-resize" data-rightBottom="rightBottom"></div>
+                                <div style="cursor: ns-resize" data-bottomCenter="bottomCenter"></div>
+                                <div style="cursor: ew-resize" data-leftCenter="leftCenter"></div>
+                        </div>
+                        <div style="min-height: 20px; overflow: hidden;" >...</div>
+                 </div>
                 `
 
                 setStyles(range, 'insertHTML', createImageDiv)

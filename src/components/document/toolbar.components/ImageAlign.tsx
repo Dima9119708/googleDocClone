@@ -5,7 +5,7 @@ import FormatAlignJustifyIcon from "@material-ui/icons/FormatAlignJustify";
 import FormatAlignRightIcon from "@material-ui/icons/FormatAlignRight";
 import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
-import {emitter} from "../../../Emitter/emitter";
+import {emitter} from "../../../core/emitter";
 
 export const ImageAlign = () => {
 

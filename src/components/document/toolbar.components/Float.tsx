@@ -4,7 +4,7 @@ import {Tooltip} from "antd";
 import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
 import BackspaceIcon from '@material-ui/icons/Backspace';
-import {emitter} from "../../../Emitter/emitter";
+import {emitter} from "../../../core/emitter";
 
 export const Float = () => {
 

@@ -4,7 +4,7 @@ import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import {setStyles} from "../mainBlock.components/page/page.functions";
 import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
-import {emitter} from "../../../Emitter/emitter";
+import {emitter} from "../../../core/emitter";
 import {Tooltip} from "antd";
 
 export const List = () => {

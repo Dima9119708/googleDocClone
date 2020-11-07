@@ -1,10 +1,27 @@
 import React from 'react';
 import {Home} from "./Pages/Home";
-import { Route } from "react-router-dom";
+import { Route, useLocation } from "react-router-dom";
 import {Document} from "./Pages/Document";
+import { home, documentPage } from './core/link';
 
 
 function App() {
+
+  const [reload, setReload] = React.useState(false)
+  const location = useLocation();
+
+
+  React.useEffect(() => {
+
+      if (location.pathname === '/' && reload) {
+          window.location.reload()
+          setReload(false)
+      }
+      else {
+          setReload(true)
+      }
+
+  }, [location])
 
   return (
     <div
@@ -17,11 +34,11 @@ function App() {
         }}
     >
 
-        <Route exact path="/">
+        <Route exact path={home}>
             <Home />
         </Route>
 
-        <Route path={"/doc/:key"}>
+        <Route path={`${documentPage}:key`}>
             <Document />
         </Route>
 

@@ -4,11 +4,11 @@ import SearchIcon from "@material-ui/icons/Search";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import React from "react";
-import {Link, useHistory} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {homeReducerTYPE} from "../../redux/store";
 import { dataUserObjectType } from "../../redux/homeReducer/homeReducer";
-
+import {documentPage, home} from "../../core/link";
 
 
 export const Header : React.FC = () => {
@@ -83,7 +83,7 @@ export const Header : React.FC = () => {
                     xs={3}
                 >
                     <Link
-                        to="/"
+                        to={home}
                         onClick={reloadPage}
                     >
                         <Grid
@@ -163,7 +163,7 @@ export const Header : React.FC = () => {
 
                         : data.map(item => {
                             return(
-                                <Link to={'doc/' + item.id}>
+                                <Link to={documentPage + item.id}>
                                     <Grid
                                         key={item.id}
                                         container

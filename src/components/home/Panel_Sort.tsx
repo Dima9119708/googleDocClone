@@ -19,7 +19,9 @@ export const PanelSort : FunctionComponent = () => {
 
     React.useEffect(() => {
         dispatch(SET_SORT_AC(sortPopupOptions[1]))
-    }, [])
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sortPopupOptions[1]])
 
     const changePopupSortItem = (item : string) => {
         dispatch(SET_SORT_AC(item))

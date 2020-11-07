@@ -1,5 +1,5 @@
 import {$stylesElem} from "./Page";
-import {emitter} from "../../../../Emitter/emitter";
+import {emitter} from "../../../../core/emitter";
 
 export function formatGetFontFamily(fontFamily : string) {
 

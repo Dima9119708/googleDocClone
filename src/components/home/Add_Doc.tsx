@@ -1,6 +1,7 @@
 import {Box, Container} from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
+import { documentPage } from "../../core/link";
 
 
 export const AddDoc : React.FC = () => {
@@ -18,7 +19,7 @@ export const AddDoc : React.FC = () => {
             >
 
                 <Link
-                    to={'/doc/' + generateKey}
+                    to={documentPage + generateKey}
                 >
                     <Box
                         className="add__doc-plus"

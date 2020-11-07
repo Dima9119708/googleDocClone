@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {defaultPageStyle} from "../../../redux/documentRecuder/docReducer";
 import {docReducerTYPE} from "../../../redux/store";
 import {setStyles} from "../mainBlock.components/page/page.functions";
-import {emitter} from "../../../Emitter/emitter";
+import {emitter} from "../../../core/emitter";
 
 
 const { underline } = defaultPageStyle

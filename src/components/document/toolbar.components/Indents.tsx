@@ -5,7 +5,7 @@ import {Tooltip} from "antd";
 import {setStyles} from "../mainBlock.components/page/page.functions";
 import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
-import IconButton from "@material-ui/core/IconButton/IconButton";
+
 
 export const Indents = () => {
 

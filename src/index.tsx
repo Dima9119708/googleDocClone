@@ -6,7 +6,7 @@ import {Provider} from "react-redux";
 import {store} from "./redux/store";
 import * as firebase from 'firebase/app';
 import 'firebase/database';
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 
 
 firebase.initializeApp({
@@ -21,9 +21,9 @@ firebase.initializeApp({
 
 ReactDOM.render(
     <Provider store={store} >
-        <BrowserRouter>
+        <HashRouter>
             <App />
-        </BrowserRouter>
+        </HashRouter>
     </Provider>,
   document.getElementById('root')
 );

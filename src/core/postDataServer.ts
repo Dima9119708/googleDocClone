@@ -1,4 +1,5 @@
 import * as firebase from "firebase";
+import 'firebase/database';
 import { userID, generateDate} from "./different";
 import {debounce} from "debounce";
 
@@ -6,11 +7,9 @@ export const POST_LIST = (key : string, title : string) => {
 
     debounce(() => {
 
-        const id = userID()
-
         firebase
             .database()
-            .ref(`/docReact/${id}/list/${key}`)
+            .ref(`/docReact/${userID()}/list/${key}`)
             .set({
                 name : title,
                 id : key,
@@ -18,20 +17,17 @@ export const POST_LIST = (key : string, title : string) => {
                 change : Date.now().toString()
             })
 
-    }, 300)()
+    }, 100)()
 }
 
 export const POST_DATA_USER = (key : string, page : object) => {
 
     debounce(() => {
 
-        const id = userID()
-
         firebase
             .database()
-            .ref(`/docReact/${id}/docsDATA/${key}`)
+            .ref(`/docReact/${userID()}/docsDATA/${key}`)
             .set(page)
 
-    }, 300)()
-
+    }, 100)()
 }

@@ -1,12 +1,11 @@
 import React from "react";
+import SimpleBar from 'simplebar-react';
 import {RootRef} from "@material-ui/core";
+import {useDispatch} from "react-redux";
 import {Header} from "./mainBlock.components/header/Header";
 import {LeftSlider} from "./mainBlock.components/LeftSlider/LeftSlider";
 import {Page} from "./mainBlock.components/page/Page";
-import {useDispatch} from "react-redux";
 import {SET_PAGE_DOM_ACTION} from "../../redux/documentRecuder/docAction";
-import SimpleBar from 'simplebar-react';
-
 
 export const paddingTop = 30
 export const paddingBottom = 30

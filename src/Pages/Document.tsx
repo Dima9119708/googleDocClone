@@ -1,12 +1,12 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import * as firebase from "firebase";
+import 'firebase/database';
 import {Header} from "../components/document/Header";
 import { Toolbar } from "../components/document/Toolbar";
 import {MainBlock} from "../components/document/MainBlock";
-import {useDispatch, useSelector} from "react-redux";
 import {docReducerTYPE} from "../redux/store";
-import { useParams } from "react-router-dom";
-import * as firebase from "firebase";
-import 'firebase/database';
 import { PAGE_SERVER_DATA_ACTION } from "../redux/documentRecuder/docAction";
 import {Preloader} from "../components/home/Preloader";
 import {POST_LIST, POST_DATA_USER} from "../core/postDataServer";

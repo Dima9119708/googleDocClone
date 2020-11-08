@@ -1,14 +1,14 @@
 import React from "react";
-import DescriptionIcon from '@material-ui/icons/Description';
-import {Grid } from "@material-ui/core";
-import {useDispatch, useSelector} from "react-redux";
-import { TITLE_PAGE_ACTION } from "../../redux/documentRecuder/docAction";
 import { useHistory } from "react-router-dom";
 import {docReducerTYPE} from "../../redux/store";
-
+import {Grid } from "@material-ui/core";
+import DescriptionIcon from '@material-ui/icons/Description';
+import {useDispatch, useSelector} from "react-redux";
+import { TITLE_PAGE_ACTION } from "../../redux/documentRecuder/docAction";
+import {home} from "../../core/link";
 //@ts-ignore
 import autosizeInput from 'autosize-input'
-import {home} from "../../core/link";
+
 
 
 export const Header = () => {
@@ -17,14 +17,11 @@ export const Header = () => {
     const dispatch = useDispatch()
     const history = useHistory();
 
-    function handleClick() { history.push(home) }
-
+    const handleClick = () => history.push(home)
 
     const handleInput = (e : React.FormEvent<HTMLInputElement>) => {
         const value = e.currentTarget.value
-
         autosizeInput(e.currentTarget)
-
         dispatch(TITLE_PAGE_ACTION(value ? value : 'Новый документ'))
     }
 

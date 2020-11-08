@@ -1,4 +1,5 @@
 import React, {FunctionComponent} from "react";
+import SimpleBar from "simplebar-react";
 import {Box } from "@material-ui/core";
 import {Header} from "../components/home/Header";
 import {AddDoc} from "../components/home/Add_Doc";
@@ -8,7 +9,6 @@ import { authInApp } from "../components/home/auth";
 import {useDispatch, useSelector} from "react-redux";
 import {homeReducerTYPE} from "../redux/store";
 import {Preloader} from "../components/home/Preloader";
-import SimpleBar from "simplebar-react";
 
 
 export const Home : FunctionComponent = () => {

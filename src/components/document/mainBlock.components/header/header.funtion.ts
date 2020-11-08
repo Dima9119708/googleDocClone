@@ -39,6 +39,7 @@ export const handleMouseLeftSlide = (
         document.onmousemove = null
         document.onmouseup = null
         flagDifference = true
+
         const width = +target.style.width.split('px')[0]
         dispatchCallback('left', width)
     }
@@ -82,6 +83,7 @@ export const handleMouseRightSlide = (
         document.onmousemove = null
         document.onmouseup = null
         flagDifference = false
+
         const width = +target.style.width.split('px')[0]
         dispatchCallback('right', width)
     }

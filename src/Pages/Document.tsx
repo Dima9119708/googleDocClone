@@ -22,17 +22,16 @@ export const Document = () => {
 
     React.useEffect(() => {
 
-        ;( async () => {
-            await firebase
-                .database()
-                .ref(`/docReact/${userID()}/docsDATA/${key}/`)
-                .once('value')
-                .then(value => {
-                    const val = value.val() ? value.val() : {};
-                    dispatch(PAGE_SERVER_DATA_ACTION(val));
-                    setDATA(true)
-                })
-        })();
+        firebase
+            .database()
+            .ref(`/docReact/${userID()}/docsDATA/${key}/`)
+            .once('value')
+            .then(value => {
+                const val = value.val() ? value.val() : {};
+                dispatch(PAGE_SERVER_DATA_ACTION(val));
+                setDATA(true)
+            })
+
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

@@ -8,6 +8,7 @@ export const AddDoc : React.FC = () => {
 
     const generateKey = Date.now().toString()
 
+
     return (
         <Box style={{
             padding : '20px 0',

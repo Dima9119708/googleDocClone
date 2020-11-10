@@ -2,7 +2,7 @@ import React from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {
     IMAGE_ACTION,
-    LINK_PRINT_DOM_ACTION,
+    LINK_PRINT_DOM_ACTION, PAGE_INNER_HTML_ACTION,
 } from "../../../../redux/documentRecuder/docAction";
 import {docReducerTYPE} from "../../../../redux/store";
 import {defaultPageStyle} from "../../../../redux/documentRecuder/docReducer";
@@ -25,8 +25,12 @@ export const Page = () => {
     const { page } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const $divContent = React.useRef<HTMLDivElement>(null)
     const [pageDiv, setPageDiv] = React.useState<HTMLDivElement | null>(null)
-
     const dispatch = useDispatch()
+
+    const dispatchCallback = () => {
+        const div = $divContent.current!.children[0] as HTMLDivElement
+        dispatch(PAGE_INNER_HTML_ACTION(div.innerHTML))
+    }
 
 
     React.useEffect(() => {
@@ -53,6 +57,7 @@ export const Page = () => {
 
     const handleInput = (e : React.FormEvent<HTMLDivElement>) => {
         $stylesElem.splice(0, $stylesElem.length)
+        dispatch(PAGE_INNER_HTML_ACTION(e.currentTarget.innerHTML))
     }
 
 
@@ -62,7 +67,6 @@ export const Page = () => {
             if(currentImage) currentImage.remove()
         }
     }
-
 
     const handleSelectText = () => {
         const value = document.getSelection()!.toString()
@@ -102,7 +106,7 @@ export const Page = () => {
         dispatch(IMAGE_ACTION(image))
 
 
-        resizeImage(target)
+        resizeImage(target, dispatchCallback)
 
         emitterImageMargin(styles)
         emitter.emit('LIST', target.parentElement!.localName)

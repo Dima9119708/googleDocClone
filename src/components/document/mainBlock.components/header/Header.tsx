@@ -1,12 +1,12 @@
 import React from "react";
 import {Box} from "@material-ui/core";
-import { handleMouseLeftSlide, handleMouseRightSlide } from "./header.funtion";
 import {useDispatch, useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../../redux/store";
 import {
     PADDING_LEFT_ACTION,
     PADDING_RIGHT_ACTION
 } from "../../../../redux/documentRecuder/docAction";
+import { handleMouseLeftSlide, handleMouseRightSlide } from "./header.funtion";
 import {widthPage} from "../page/Page";
 
 export const Header = () => {

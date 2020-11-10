@@ -34,7 +34,7 @@ export function setStyles(range : object, comand : string, value : string = '') 
 }
 
 
-export function resizeImage(target : HTMLDivElement) {
+export function resizeImage(target : HTMLDivElement, callback : () => void) {
 
     const rightCenter = target.dataset['rightcenter']
     const rightBottom = target.dataset['rightbottom']
@@ -70,6 +70,7 @@ export function resizeImage(target : HTMLDivElement) {
         document.onmouseup = e => {
             document.onmousemove = null
             document.onmouseup = null
+            callback()
         }
     }
 }

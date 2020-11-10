@@ -17,7 +17,7 @@ export const POST_LIST = (key : string, title : string) => {
                 change : Date.now().toString()
             })
 
-    }, 100)()
+    }, 200)()
 }
 
 export const POST_DATA_USER = (key : string, page : object) => {
@@ -29,5 +29,5 @@ export const POST_DATA_USER = (key : string, page : object) => {
             .ref(`/docReact/${userID()}/docsDATA/${key}`)
             .set(page)
 
-    }, 100)()
+    }, 200)()
 }

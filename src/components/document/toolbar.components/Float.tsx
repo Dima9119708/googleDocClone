@@ -1,15 +1,17 @@
 import React from "react";
 import ArtTrackIcon from '@material-ui/icons/ArtTrack';
 import {Tooltip} from "antd";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
 import BackspaceIcon from '@material-ui/icons/Backspace';
 import {emitter} from "../../../core/emitter";
+import {PAGE_INNER_HTML_ACTION} from "../../../redux/documentRecuder/docAction";
 
 export const Float = () => {
 
     const { divPage } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const [float, setFloat] = React.useState('')
+    const dispatch = useDispatch()
 
     React.useEffect(() => {
         emitter.on('FLOAT', currentFloat => setFloat(currentFloat))
@@ -41,6 +43,8 @@ export const Float = () => {
             activeImage.style.marginLeft = '0'
             emitter.emit('IMAGE__SIDE', 'left')
         }
+
+        dispatch(PAGE_INNER_HTML_ACTION(div.innerHTML))
     }
 
     return (<>

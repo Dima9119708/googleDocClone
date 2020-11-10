@@ -1,4 +1,5 @@
 import React from "react";
+import {useSelector} from "react-redux";
 import {Box} from "@material-ui/core";
 import {Titles} from "./toolbar.components/Titles";
 import {Fonts} from "./toolbar.components/Fonts";
@@ -14,7 +15,6 @@ import {Print} from "./toolbar.components/Print";
 import {FontSize} from "./toolbar.components/FontSize";
 import {ImageAlign} from "./toolbar.components/ImageAlign";
 import {Float} from "./toolbar.components/Float";
-import {useSelector} from "react-redux";
 import {docReducerTYPE} from "../../redux/store";
 import {Strikethrough} from "./toolbar.components/Strikethrough";
 import {List} from "./toolbar.components/List";

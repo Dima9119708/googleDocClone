@@ -9,7 +9,8 @@ import {
     LINE_HEIGHT,
     TITLE,
     IMAGE,
-    PAGE_SERVER_DATA
+    PAGE_SERVER_DATA,
+    PAGE_INNER_HTML
 } from "./docConstants";
 
 
@@ -57,9 +58,7 @@ export function docReducer(state = initialState, action : any) {
 
             state.page = {...state.page, ...action.data}
 
-            return {
-                ...state,
-            }
+            return {...state}
 
         case LINK_PRINT_DOM :
 
@@ -67,6 +66,12 @@ export function docReducer(state = initialState, action : any) {
                 ...state,
                 linkPrintDom : action.DOM
             }
+
+        case PAGE_INNER_HTML :
+
+            state.page.innerHTML = action.data
+
+            return {...state}
 
         case SET_PAGE_DOM :
 
@@ -93,49 +98,37 @@ export function docReducer(state = initialState, action : any) {
 
             state.page.title = action.title
 
-            return {
-                ...state,
-            }
+            return {...state}
 
         case PADDING_TOP :
 
             state.page.paddingTop = action.height
 
-            return {
-                ...state,
-            }
+            return {...state}
 
         case PADDING_BOTTOM :
 
             state.page.paddingBottom = action.height
 
-            return {
-                ...state,
-            }
+            return {...state}
 
         case PADDING_LEFT :
 
             state.page.paddingLeft = action.width
 
-            return {
-                ...state,
-            }
+            return {...state}
 
         case PADDING_RIGHT :
 
             state.page.paddingRight = action.width
 
-            return {
-                ...state,
-            }
+            return {...state}
 
         case LINE_HEIGHT :
 
             state.page.lineHeight = action.lineHeight
 
-            return {
-                ...state,
-            }
+            return {...state}
 
         default :
             return { ...state }

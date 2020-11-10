@@ -14,8 +14,8 @@ function App() {
   React.useEffect(() => {
 
       if (location.pathname === '/' && reload) {
-          window.location.reload()
           setReload(false)
+          window.location.reload()
       }
       else {
           setReload(true)
@@ -28,7 +28,7 @@ function App() {
         style={{
             padding : 0,
             width : '100%',
-            minWidth : '1140px',
+            minWidth : '1400px',
             maxWidth : '2556px',
             margin : '0 auto'
         }}

@@ -20,11 +20,14 @@ export const Header : React.FC = () => {
     const $parentInput = React.useRef<HTMLDivElement>(null)
     const $input = React.useRef<HTMLInputElement>(null)
 
+
     React.useEffect(() => {
         document.onclick = e => setSearchList('none')
     }, [])
 
+
     const reloadPage = () => window.location.reload()
+
 
     const onChange = (e : React.ChangeEvent<HTMLInputElement> ) => {
         const { value } = e.currentTarget
@@ -188,7 +191,11 @@ export const Header : React.FC = () => {
                                             />
                                             <h3 style={{
                                                     fontSize : '16px',
-                                                    fontWeight : 500
+                                                    fontWeight : 500,
+                                                    whiteSpace: 'nowrap',
+                                                    overflow: 'hidden',
+                                                    textOverflow: 'ellipsis',
+                                                    maxWidth: 'inherit',
                                                 }}
                                             >
                                                 { item.name }

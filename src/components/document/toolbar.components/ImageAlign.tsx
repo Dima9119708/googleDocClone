@@ -3,14 +3,16 @@ import {Tooltip} from "antd";
 import FormatAlignLeftIcon from "@material-ui/icons/FormatAlignLeft";
 import FormatAlignJustifyIcon from "@material-ui/icons/FormatAlignJustify";
 import FormatAlignRightIcon from "@material-ui/icons/FormatAlignRight";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {docReducerTYPE} from "../../../redux/store";
 import {emitter} from "../../../core/emitter";
+import {PAGE_INNER_HTML_ACTION} from "../../../redux/documentRecuder/docAction";
 
 export const ImageAlign = () => {
 
     const { divPage } = useSelector(({ docReducer } : docReducerTYPE ) => docReducer)
     const [align, setAlign] = React.useState('left')
+    const dispatch = useDispatch()
 
     React.useEffect(() => {
         emitter.on('IMAGE__SIDE', side => setAlign(side))
@@ -39,6 +41,8 @@ export const ImageAlign = () => {
             activeImage.style.marginRight = '0'
             activeImage.style.marginLeft = 'auto'
         }
+
+        dispatch(PAGE_INNER_HTML_ACTION(div.innerHTML))
     }
 
     return (<>

@@ -8,7 +8,8 @@ import {
     LINE_HEIGHT,
     IMAGE,
     TITLE,
-    PAGE_SERVER_DATA
+    PAGE_SERVER_DATA,
+    PAGE_INNER_HTML
 } from "./docConstants";
 
 
@@ -45,6 +46,19 @@ export const PAGE_SERVER_DATA_ACTION = (data : object) : PAGE_SERVER_DATA_TYPE =
 
     return {
         type : PAGE_SERVER_DATA,
+        data
+    }
+}
+
+
+type PAGE_INNER_HTML_TYPE = {
+    type : typeof PAGE_INNER_HTML,
+    data : string
+}
+export const PAGE_INNER_HTML_ACTION = (data : string) : PAGE_INNER_HTML_TYPE => {
+
+    return {
+        type : PAGE_INNER_HTML,
         data
     }
 }
